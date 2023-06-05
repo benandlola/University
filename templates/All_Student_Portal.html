@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Student Portal </title>
+        <link href="/static/styles.css" rel="stylesheet" type="text/css" />
+        <style>
+          body {
+            background: url("static/images/wallpaper.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+          }
+        </style>
+      </head>
+
+    <body>
+        {% include "navbar.html" %}    
+        <div class = "main">
+            <div class="parent">
+                <h1 class="GS_Portal_Text">{{ x.fname }} {%if x.minit != ' '%}{{x.minit}}.{%endif%} {{ x.lname }} directory</h1>
+            </div>
+                {% if x.suspended == "T" %}
+                <div class="parent">  
+                <h1 class="GS_Portal_Text">You are on Academic Suspension</h1>
+            </div>
+                {% endif %}
+                <div class="parent">
+                  <h2 class="GS_Portal_Text">Enrollment: {{ x.degree }}</h2>
+                  <h2 class="GS_Portal_Text">Advisor: {{ adname.fname }} {{ adname.lname }}</h2>
+                </div>
+                {%if has_requested_grad%}
+                <div class="parent">
+                <h4 class="GS_Portal_Text">Application for Graduation Pending...</h4>
+                {%endif%}
+            </div>
+
+            <div class="portal-table-container">
+                <div class="portal-table">
+                    <div class="portal-table-header">Manage Registration</div>
+                        <div class="portal-table-content">
+                            <a href = "/Student_Portal"  class="portal-table-link" > Manage Class Schedule</a>
+                            <a href = "/transcript_ads/{{session["uid"]}}" class="portal-table-link"> View Transcript </a>
+                            <a href = "/coursecatalog" class="portal-table-link"> View Course Catalog </a>
+                            <!-- <a href = "//youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"  class="portal-table-link" > Easter Egg </a> -->
+                        </div>
+                </div>
+
+
+                <div class="portal-table">
+                    <div class="portal-table-header">Manage Advising</div>
+                        <div class="portal-table-content">
+                            {% if has_form1 %}
+                            <a href = "/viewform1/{{session["uid"]}}" class="portal-table-link"> View Form 1 </a>
+                            {% if x.suspended == "F"%}
+                              {% if has_requested_grad %}
+                              <a class="portal-table-link" >Application Submitted</a>
+                               {% else %}
+                               <a href = "/applyforGrad/{{session["uid"]}}" class="portal-table-link"> Apply For Graduation </a>
+                              {% endif %}
+                               {% endif %}
+                          {% else %}
+                          <a href = "/form1/{{session["uid"]}}" class="portal-table-link"> Fill Out Form 1 </a>
+                          {% endif %}
+                          {% if x.degree == 'PHD' %}
+                          <a href = "/studentaccessthesis/{{session["uid"]}}" class="portal-table-link">View/Edit Thesis</a></li>
+                          {% endif %}
+                          <a href = "//youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"  class="portal-table-link" style = "color: white"> Easter Egg </a>
+                          <!-- <a href = "//youtube.com/watch?v=7yXELEw7fYg&ab_channel=BoredGuyWithRandomStuff"  class="portal-table-link" > Easter Egg </a> -->
+                        </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

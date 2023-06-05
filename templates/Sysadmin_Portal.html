@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> sysadmin portal </title>
+        <style>
+            body {
+              background: url("static/images/wallpaper.jpg");
+              background-repeat: no-repeat;
+              background-size: cover;
+            }
+          </style>
+    </head>
+
+    <body>
+        {% include "navbar.html" %}
+        <div class="main">
+            <div class="parent">
+                <h1 class="GS_Portal_Text">Welcome Admin {{session["first_name"]}} {{session["last_name"]}}</h1>
+            </div>
+            <div class="portal-table-container">
+                <div class="portal-table">
+                    <div class="portal-table-header">Make Queries</div>
+                        <div class="portal-table-content">
+                            <a href="/all_users" class="portal-table-link">View and Edit Users</a>
+                            <a href="/Get_Stats" class="portal-table-link">View Stats</a>
+                            <a href = "/alumni" class = "portal-table-link"> View Alumni </a>
+                            <a href = "/admittedstudents" class = "portal-table-link"> View Admitted Students </a>
+                        </div>
+                    </div>
+        
+                <div class="portal-table">
+                    <div class="portal-table-header">Manage Advising</div>
+                        <div class="portal-table-content">
+                            <a href="/facultyviewstudents" class="portal-table-link">View and Manage Students</a>
+                            <a href="/coursecatalog" class="portal-table-link">View Courses</a>
+                            <a href="/asmatch" class="portal-table-link">View Advisors/Student Assignments</a>
+                            <a href="/gradrequests" class="portal-table-link"> View Graduation Requests</a>
+                        </div>
+                    </div>
+                <div class="portal-table">
+                <div class="portal-table-header">Manage Applications</div>
+                    <div class="portal-table-content">
+                        <a href="/viewallreviews" class="portal-table-link">Write a Review</a>
+                        <a href="/viewallapps" class="portal-table-link">View All Applications</a>
+                        <a href="/viewdecideapps" class="portal-table-link">View All Decisions </a>
+                        <a href="/admitstudents" class="portal-table-link">Admit Students</a>
+                    </div>
+                </div>
+                <div class="portal-table">
+                    <div class="portal-table-header">Manage Registration</div>
+                        <div class="portal-table-content">
+                            <a href="/manage_semesters" class="portal-table-link">Manage Semesters</a>
+                            <a href="/Section_Add" class="portal-table-link">Manage Sections </a>
+                            <a href="/Class_Add" class="portal-table-link">Manage Course Catalog</a>
+                            <a href="//panerabread.com/en-us/mypanera/subscription.html" class="portal-table-link" style = "color: white">Easter Egg</a>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        </div>
+    
+
+    </body>
+
+</html>

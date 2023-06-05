@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GS Portal</title>
+  <link href="/static/styles.css" rel="stylesheet" type="text/css" />
+  <style>
+        body {
+          background: url("static/images/wallpaper.jpg");
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
+      </style>
+</head>
+
+<body>
+
+  {% include "navbar.html" %}
+
+  <div class = "student-table-main">
+      <div class="parent">
+      <h2 class = "All_Student_Table_Text"> Welcome {{facultyinfo.fname}} {{facultyinfo.minit}} {{facultyinfo.lname}} | UID: {{facultyinfo.uid}} | Role: {{facultyinfo.user_type}}</h4>
+      </div>
+      <h3 class = "All_Student_Table_Header">View All Applications</h3>
+  </div>
+
+  <br><br>
+  <form method="POST" action="/viewallapps">
+      <div class="search_container"> 
+          <div class="search"> 
+              <div class="search_row"> 
+                  <div class="col-md-6"> 
+                      <div class="search-1"> 
+                          <i class='bx bx-search-alt'></i> 
+                          <ul><label for degree></label>
+                              <select name = degree id = degree>
+                                  <option value = "%"> Any Degree </option>
+                                  {% if current_deg == "PhD" %}
+                                      <option value = "PhD" selected> PhD </option>
+                                  {% else %}
+                                      <option value = "PhD"> PhD </option>
+                                  {% endif %}
+                                  {% if current_deg == "MS" %}
+                                      <option value = "MS" selected> Masters </option>
+                                  {% else %}
+                                      <option value = "MS"> Masters </option>
+                                  {% endif %}
+                              </select>
+                          <label for sem></label>
+                              <select name = sem id = sem>
+                                  <option value = "%" selected> Any Semester </option>
+                                  {% for sem in valid_sems %}
+                                      {% if sem == current_sem %}
+                                          <option value = "{{sem}}" selected> {{sem}} </option>
+                                      {% else %}
+                                          <option value = "{{sem}}"> {{sem}} </option>
+                                      {% endif %}
+                                  {% endfor %}  
+                              </select>
+                          <label for year></label>
+                              <select name = year id = year>
+                                  <option value = "%" selected> Any Year </option>
+                                  {% for year in valid_years %}
+                                      {% if year | int == current_year | int %}
+                                          <option value = {{year}} selected> {{year}} </option>
+                                      {% else %}
+                                          <option value = {{year}}> {{year}}</option>
+                                      {% endif %}
+                                  {% endfor %}
+                              </select>
+                      </div> 
+                  </div> 
+                  <div class = "col-md-6">
+                      <div class = "search-1">
+                          <i class = "bx bx-search-alt"></i>
+                          <input type="text" name = "uid" placeholder="Student UID"> 
+                      </div>
+                  </div>
+                  <div class = "col-md-6">
+                      <div class = "search-1">
+                          <i class = "bx bx-search-alt"></i>
+                          <input type="text" name = "lname" placeholder="Student Last Name"> 
+                      </div>
+                  </div>
+                  <div class="col-md-6"> 
+                      <div> 
+                          <div class="search-2"> 
+                              <i class='bx bxs-map' ></i> 
+                              <input type="text" name = "aduid" placeholder="    Advisor UID">
+                              <button> Search </button>
+                          </div> 
+                      </div> 
+                  </div> 
+              </div> 
+          </div>
+      </div>
+      </form>
+      <br><br>
+
+
+      <table class="student-table">
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>UID</th>
+              <th>Degree</th>
+              <th>Application Year and Sem</th>
+              <th>View Application</th>      
+          </tr>
+      </thead>
+      <tbody>
+          {% for us in users %}
+          <tr>
+            <td>{{ us['fname'] }}  {% if us['minit'] %} {{ us['minit'] }}{% endif %} {{ us['lname'] }} </td>
+            <td> {{ us['uid'] }}</td>
+            <td> {{us["degree"]}}</td>
+            <td> {{us["semester"]}} {{us["year"]}}</td>
+            <td> <a href="\view_apps\{{ us['uid'] }}"> View Application</a> </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <br>
+    </div>
+</body>
+</html>
+
+<!--
+      </td>
+    </tr>
+    <tr>
+      <td>Decide Apps:</td>
+      <td>
+        <form action="/application" method="POST">
+          {% for dec in decides %}
+          <button name="decideapp" value="{{ dec['uid'] }}"> Decide for: {{ dec['lname'] }}, {{ dec['fname'] }}  {% if dec['minit'] %} {{ dec['minit'] }} {% endif %} - {{ dec['uid'] }}</button>
+          </br>
+          {% endfor %}
+        </form>
+      </td>
+    </tr>
+    <tr>
+      <td>Admit Students:</td>
+      <td>
+        {% for ad in admit %}
+        {% if ad['status'] == 'acceptdeposit' %}
+        <a href="\accept_app\{{ ad['uid'] }}"> Admit: {{ ad['lname'] }}, {{ ad['fname'] }} {% if ad['minit'] %} {{ ad['minit'] }} {% endif %}</a>
+        {% endif %}
+        {% endfor %}
+      </td>
+    </tr>
+  </table>
+-->

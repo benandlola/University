@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Students</title>
+    </head>
+
+    <body>
+        {% include "navbar.html" %}
+    
+    <div class = "main">
+        <h3>All Students</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Student Directory</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student.fname }} {{ student.minit }} {{ student.lname }}</td>
+                    <td>{{ student.uid }}</td>
+                    <td>{{ student.email }}</td>
+                    <td><a href="/studentdirectory/{{ student.uid }}">View Student Directory</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p><a href="/home">Go Back</a></p>
+    </div>
+    </body>
+</html>

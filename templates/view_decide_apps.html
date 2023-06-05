@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GS Portal</title>
+  <link href="/static/styles.css" rel="stylesheet" type="text/css" />
+  <style>
+        body {
+          background: url("static/images/wallpaper.jpg");
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
+      </style>
+</head>
+
+<body>
+
+  {% include "navbar.html" %}
+
+  <div class = "student-table-main">
+      <div class="parent">
+      <h2 class = "All_Student_Table_Text"> Welcome {{facultyinfo.fname}} {{facultyinfo.minit}} {{facultyinfo.lname}} | UID: {{facultyinfo.uid}} | Role: {{facultyinfo.user_type}}</h4>
+      </div>
+      <h3 class = "All_Student_Table_Header">Decide Applications</h3>
+  </div>
+
+  <br><br>
+  <form method="POST" action="/viewdecideapps">
+  <div class="search_container"> <div class="search"> <div class="search_row"> <div class="col-md-6"> <div class="search-1"> <i class='bx bx-search-alt'></i> <input type="text" name = "lname" placeholder="Last Name"> </div> </div> <div class="col-md-6"> <div> <div class="search-2"> <i class='bx bxs-map' ></i> <input type="text" name = "uid" placeholder="    UID"> <button> Search </button> </div> </div> </div> </div> </div>
+</div>
+  <!-- <form method="POST" action="/viewallapps"> -->
+    <!-- Last Name: <input type = text name = lname><br>
+    UID: <input type = "text" name = uid><br> -->
+    <!-- <input type = submit name = submit value = search><br> -->
+  </form><br>
+
+      <table class="student-table">
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>UID</th>
+              <th>Decide Applications</th>      
+          </tr>
+      </thead>
+      <tbody>
+          {% for dec in decides %}
+          <tr>
+            <form action="/application" method="POST">
+            <td>{{ dec['fname'] }}  {% if dec['minit'] %} {{ dec['minit'] }}{% endif %} {{ dec['lname'] }} </td>
+            <td> {{ dec['uid'] }}</td>
+            <input type="hidden" name="decideappadmin" value = "{{ dec['uid'] }}">
+            <td><button name="decideapp" value="{{ dec['uid'] }}" class= "nav_btn"> Decide</button></td>
+            </form>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <br>
+    </div>
+</body>
+</html>

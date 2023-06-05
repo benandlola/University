@@ -1,0 +1,34 @@
+<!--------------------DOCUMENT DESCRIPTION------------------ 
+-This HTML shows the alumni's personal info
+-They update their personal info here
+-Visible by: Admin, GA, Alumni
+--------------------DOCUMENT DESCRIPTION--------------------> 
+
+<!DOCTYPE html>
+<html>
+        
+    <head> 
+        <title> {{ x.user_id }} Information </title>
+      </head>
+
+    <body>
+        {% include "navbar.html" %}
+        
+    <div class = "main">
+       <h2>ADD OTHER NEW FIELDS LIKE SSN, ADDRESS ETC</h2>
+        <h2>{{ x.fname }} Personal Information</h2>
+        <li>User ID: {{ x.uid }}</li>
+        <form method="POST" action="{{ url_for('update_alumni', id=x.uid) }}">
+            <label for="fname">First Name:</label>
+            <input type="text" name="fname" pattern="[A-Za-z]+" value="{{ x.fname }}" required><br><br>
+            <label for="minit">Middle Initial:</label>
+            <input type="text" name="minit" pattern="[A-Za-z]{0,1}" title="Please enter one letter or leave blank" maxlength="1" value="{{ x.minit }}"><br><br>
+            <label for="lname">Last Name:</label>
+            <input type="text" name="lname" pattern="[A-Za-z\- ]+" value="{{ x.lname }}" required><br><br>
+            <label for="email">Email:</label>
+            <input type="email" name="email" value="{{ x.email }}" required><br><br>
+            <input type="submit" value="Update">
+        </form>
+    </div>
+    </body>
+</html>

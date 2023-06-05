@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>View Reviews </title>
+  <link href="/static/styles.css" rel="stylesheet" type="text/css" />
+  <style>
+        body {
+          background: url("static/images/wallpaper.jpg");
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
+      </style>
+</head>
+
+<body>
+
+  {% include "navbar.html" %}
+
+  <div class = "student-table-main">
+      <div class="parent">
+      <h2 class = "All_Student_Table_Text"> Welcome {{session["first_name"]}} {{session["last_name"]}} | UID:  {{session["uid"]}} </h4>
+      </div>
+      <h3 class = "All_Student_Table_Header">Review Applications</h3>
+  </div>
+  <br><br>
+  <form method="POST" action="/viewallreviews">
+  <div class="search_container"> <div class="search"> <div class="search_row"> <div class="col-md-6"> <div class="search-1"> <i class='bx bx-search-alt'></i> <input type="text" name = "lname" placeholder="Last Name"> </div> </div> <div class="col-md-6"> <div> <div class="search-2"> <i class='bx bxs-map' ></i> <input type="text" name = "uid" placeholder="    UID"> <button> Search </button> </div> </div> </div> </div> </div>
+</div>
+  </form><br>
+      <table class="student-table">
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th> UID </th>
+              <th>Review Applications</th>      
+              
+          </tr>
+      </thead>
+      <tbody>
+        {% for review in reviews %}
+          <tr>
+            <form action="/application" method="POST">
+            <td>{{ review['fname'] }}  {% if review['minit'] %} {{ review['minit'] }}{% endif %} {{ review['lname'] }} </td>
+            <td> {{ review['uid'] }}</td>
+            <input type="hidden" name="reviewappadmin" value = "{{ review['uid'] }}">
+            <td><button name="reviewapp" value="{{ review['uid'] }}" class= "nav_btn"> review</button></td>
+            </form>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <br>
+    </div>
+</body>
+</html>

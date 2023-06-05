@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Faculty Portal </title>
+        <style>
+            body {
+              background: url("static/images/wallpaper.jpg");
+              background-repeat: no-repeat;
+              background-size: cover;
+            }
+          </style>
+    </head>
+
+    <body>
+        {% include "navbar.html" %}    
+    <div class = "main">
+        <div class="parent">
+            <h1 class="GS_Portal_Text">Welcome Faculty: {{session["first_name"]}} {{session["last_name"]}}</h1>
+        </div>
+        <div class="portal-table-container">
+            {% if privileges["is_CAC"] == "T" %}
+            <div class="portal-table">
+                <div class="portal-table-header">CAC privileges</div>
+                    <div class="portal-table-content">
+                        <a href="/viewdecideapps" class="portal-table-link">View All Decisions </a>
+                    </div>
+            </div>
+            {% endif %}
+
+            {% if privileges["can_teach"] == "T" %}
+            <div class="portal-table">
+                <div class="portal-table-header">Teaching Privileges</div>
+                    <div class="portal-table-content">
+                        <a href = "/Faculty_Portal" class="portal-table-link">View Your Classes </a>
+                    </div>
+            </div>
+            {% endif %}
+
+            {% if privileges["can_advise"] == "T" %}
+            <div class="portal-table">
+                <div class="portal-table-header">Advising Privileges</div>
+                    <div class="portal-table-content">
+                        <a href = "/facultyviewstudents" class="portal-table-link">View Your Advisees</a>
+                    </div>
+            </div>
+            {% endif %}
+
+            {% if privileges["can_review"] == "T" %}
+            <div class="portal-table">
+                <div class="portal-table-header">Reviewing Privileges</div>
+                    <div class="portal-table-content">
+                        <a href = "/viewallreviews" class="portal-table-link">Review applications</a>
+                    </div>
+            </div>
+            {% endif %}
+            <div class="portal-table">
+                <div class="portal-table-header">Faculty Privileges</div>
+                    <div class="portal-table-content">
+                        <a href="/viewallapps" class="portal-table-link">View All Applications</a>
+                    </div>
+            </div>
+
+
+    </div>
+    </body>
+</html>
+

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Manage Semesters</title>
+    </head>
+
+    <body>
+        <body>
+            {% include "navbar.html" %}
+            
+        <div class = "main">
+            
+        <div class="viewform1">
+            <h1> Welcome Sysadmin </h1><br><br>
+    
+            <h1> Manage Registration Years and Semesters </h1>
+            <table border = "5" cellspacing = "0" align = "center">
+                <tr>
+                    <b><th align = "center" height = "50" width = "100"> Year and Semester</th>
+                    <!-- <td align = "center" height = "50" width = "100"> Semester </td> -->
+                    <th align = "center" height = "50" width = "100"> Status </th>
+                    <th align = "center" height = "50" width = "100"> Possible to Register</th>
+                    </b>
+                </tr>
+                {% set ns = namespace(reachedStatus = "False", reachedReg = "False") %}
+                {% for row in valid_sems %}
+                <tr>
+                    <td align = "center" height = "50" width = "100">
+                        {% if row["semester"] == "1" %}
+                            Spring {{row["year"]}}
+                        {% elif row["semester"] == "2" %}
+                            Summer {{row["year"]}}
+                        {% else %}
+                            Fall {{row["year"]}}
+                        {% endif %}
+                    </td>
+                    <td align = "center" height = "50" width = "100">
+                        <form action = "/manage_semesters" method = "POST">
+                        {% if row["current_sem"] == "T" %}
+                            {% set ns.reachedStatus = "True" %}
+                            current semester
+                        {% elif ns.reachedStatus == "False" %}
+                            past semester
+                        {% else %}
+                            future semester
+                            <input type = "submit" name = "set_sem_year" value = "set as current semester">
+                            <input type = "hidden" name = "year" value = "{{row['year']}}">
+                            <input type = "hidden" name = "sem" value = "{{row['semester']}}">
+                            <input type = "hidden" name = "Form_Type" value = "edit_current">
+                        {% endif %}
+                        </form>
+                    </td>
+                    <td align = "center" height = "50" width = "100">
+                        <form action = "/manage_semesters" method = "POST">
+                        {% if row["current_sem"] == "T" %}
+                            {% set ns.reachedReg = "True" %}
+                            add/drop open
+                        {% elif ns.reachedReg == "False" %}
+                            add/drop closed
+                        {% else %}
+                            registration status:
+                            <label for = can_register></label>
+                            <select name = can_register id = can_register>
+                                {%if row["can_register"] == "T" %}
+                                    <option value = "T" selected>open</option>
+                                    <option value = "F"> closed </option>
+                                {% else %}
+                                    <option value = "T"> open </option>
+                                    <option value = "F" selected> closed </option>
+                                {% endif %}
+                            </select>
+                            <input type = submit name = "submit" value = "submit">
+                            <input type = hidden name = "Form_Type" value = "set_registration">
+                            <input type = hidden name = "year" value = "{{row['year']}}">
+                            <input type = hidden name = "sem" value = "{{row['semester']}}">
+                        {% endif %}
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        
+        
+        </div>
+        </div>
+    </body>
+
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> grad secretary portal </title>
+    </head>
+
+    <body>
+        {% include "navbar.html" %}
+        
+    <div class = "main">
+
+        <h1>Welcome Grad Secretary {{session["first_name"]}} {{session["last_name"]}}</h1>
+
+        Univsersity ID: {{ session['uid'] }} <br><br>
+
+        
+        <h1> Search For Students: </h1>
+        {% include "Lookup.html" %}
+    
+        {% for student in session["GS_Lookup_Results"] %}
+        {{ student['fname'] }} {{ student['lname'] }} {{ student['uid'] }}
+        <a href="/Transcript{{student['uid']}}">Transcript</a> <br>
+    
+        {% endfor %}
+
+    </div>
+    </body>
+
+</html>

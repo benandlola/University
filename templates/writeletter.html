@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writer Rec</title>
+    <style>
+        ul {
+            list-style-type: none;
+            }
+        </style>
+</head>
+<body>
+    {% include "navbar.html" %}
+
+<div class = "main"  style="text-align: center;"></div>
+    <div class="application_box" style="width: calc(30% + 30px);">
+    <h1 style="text-align: center;">Please write recommendations for the following people: </h1> <br>
+    <ul>
+    {% for d in data %}
+        {% if d['sent'] and not d['message'] %}
+            <li><h3>Write a recommendation letter for: {{ d['lname'] }}, {{ d['fname'] }} {% if d['minit'] %} {{ d['minit'] }} {% endif %}</h3></li>
+            <br>   <li>Their message to you: {{ d['sent'] }} </li> <br>
+            <form action="/writeletter" method="POST">
+                <li>Message <input type="text" name="{{ d['uid'] }}"> </li>
+                <input type="hidden" name="uuid" value="{{ d['uid'] }}">
+                <li><input type="submit" name="submit"></li>
+            </form>
+        {% elif d['message'] %}
+        <ul>
+            <br> <li>
+            <label for="messagething">Your message to: {{ d['lname'] }}, {{ d['fname'] }} {% if d['minit'] %} {{ d['minit'] }} {% endif %} </label> </li> <br>
+            <li><input type="text" id="messagething" name="messagething" value="{{ d['message'] }}" readonly></li> <br>
+        </ul>
+        {% endif %}
+    {% endfor %}
+    </ul>
+    </div>
+</div>
+</body>
+</html>

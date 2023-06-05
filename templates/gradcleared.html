@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Grad Cleared Students </title>
+    </head>
+
+<body>
+    {% include "navbar.html" %}
+
+ <div class = "student-table-main">
+    <div class="parent">
+        <h1 class="GS_Portal_Text">Welcome {{session["first_name"]}} {{session["last_name"]}}  | UID: {{session["uid"]}} | Role: {{session["user_type"]}} </h1>
+    </div>
+    <h3 class= "All_Student_Table_Header">Students Cleared For Graduation</h3>
+
+    <form method="POST" action="/gradcleared">
+        <div class="search_container"> 
+            <div class="search"> 
+                <div class="search_row"> 
+                    <div class="col-md-6"> 
+                        <div class="search-1"> 
+                            <i class='bx bx-search-alt'></i> 
+                            <ul><label for degree></label>
+                                <select name = degree id = degree>
+                                    <option value = "%"> Any Degree </option>
+                                    {% if current_deg == "PhD" %}
+                                        <option value = "PhD" selected> PhD </option>
+                                    {% else %}
+                                        <option value = "PhD"> PhD </option>
+                                    {% endif %}
+                                    {% if current_deg == "MS" %}
+                                        <option value = "MS" selected> Masters </option>
+                                    {% else %}
+                                        <option value = "MS"> Masters </option>
+                                    {% endif %}
+                                </select>
+                            <label for sem></label>
+                                <select name = sem id = sem>
+                                    <option value = "%" selected> Any Semester </option>
+                                    {% for sem in valid_sems %}
+                                        {% if sem == current_sem %}
+                                            <option value = "{{sem}}" selected> {{sem}} </option>
+                                        {% else %}
+                                            <option value = "{{sem}}"> {{sem}} </option>
+                                        {% endif %}
+                                    {% endfor %}  
+                                </select>
+                            <label for year></label>
+                                <select name = year id = year>
+                                    <option value = "%" selected> Any Year </option>
+                                    {% for year in valid_years %}
+                                        {% if year | int == current_year | int %}
+                                            <option value = {{year}} selected> {{year}} </option>
+                                        {% else %}
+                                            <option value = {{year}}> {{year}}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                        </div> 
+                    </div> 
+                    <div class = "col-md-6">
+                        <div class = "search-1">
+                            <i class = "bx bx-search-alt"></i>
+                            <input type="text" name = "uid" placeholder="Student UID"> 
+                        </div>
+                    </div>
+                    <div class = "col-md-6">
+                        <div class = "search-1">
+                            <i class = "bx bx-search-alt"></i>
+                            <input type="text" name = "lname" placeholder="Student Last Name"> 
+                        </div>
+                    </div>
+                    <div class="col-md-6"> 
+                        <div> 
+                            <div class="search-2"> 
+                                <i class='bx bxs-map' ></i> 
+                                <input type="text" name = "aduid" placeholder="    Advisor UID">
+                                <button> Search </button>
+                            </div> 
+                        </div> 
+                    </div> 
+                </div> 
+            </div>
+        </div>
+        </form>
+        <br><br>
+
+
+    <table class="student-table">
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>Student Name</th>
+                <th>Advisor ID</th>
+                <th>Degree</th>
+                <th>Graduating Semester</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in requests %}
+            <tr>
+                <td>{{r.uid}}</td>
+                <td>{{r.fname}} {{r.minit}} {{r.lname}} </td>
+                <td>{{r.aduid}}</td>
+                <td>{{r.degree}} </td>
+                <td>{{semesters[r.semester]}} {{r.year}} </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+</div>
+</body>
+</html>

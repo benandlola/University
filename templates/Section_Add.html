@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> class sections editor </title>
+    </head>
+
+    <body>
+        {% include "navbar.html" %}    
+    <div class = "main">
+        <div class="application_box" style="width: calc(50% + 30px);">
+        <h1 style="text-align: center;"> Edit Existing Sections: </h1>
+        <error style="display: flex; justify-content: center; align-items: center;">{{session["error"]}}</error>
+        <form action = "/Section_Add" method = "POST">
+            <div style="display: flex; justify-content: center; align-items: center;">
+            <label for year></label>    
+            <select name = year id = "year">
+                {% for year in possible_years %}
+                    {% if year|string == session["section_year"] %}
+                        yes
+                        <option value = {{year}} selected> {{year}}</option>
+                    {% else %}
+                        no
+                        <option value = {{year}}> {{year}} </option>
+                    {% endif %}
+                {% endfor %}
+            </select> 
+            <label for sem></label>
+            <select name = sem id = sem  style="display: flex; justify-content: center; align-items: center;">
+                {% if session["section_sem"] == "1" %}
+                    <option value = 1 selected> Spring </option>
+                    <option value = 2> Summer </option>
+                    <option value = 3 > Fall </option>
+                {% elif session["section_sem"] == "2" %}
+                    <option value = 1 > Spring </option>
+                    <option value = 2 selected> Summer </option>
+                    <option value = 3 > Fall </option>
+                {% else %}
+                    <option value = 1 > Spring </option>
+                    <option value = 2> Summer </option>
+                    <option value = 3 selected> Fall </option>
+                {% endif %}
+
+            </select>
+            <input type = "submit" name = "set_sem_year" value = "select year and semester"><br>
+            </div>
+        </form>
+        <br><br>
+
+        {% if can_edit == "can not edit semesters which have been completed" or can_edit == "can not edit semesteres for which registration is open" %}
+            <error style="display: flex; justify-content: center; align-items: center;">{{can_edit}}</error><br><br>
+        {% endif %}
+        </div>
+
+        <table border = "5" cellspacing = "0" align = "center" style = "background-color: grey;">
+            {% set ns = namespace(cid = -1) %}
+            {% for class in all_sections %}
+            {% set current_cid = class["cid"] %}
+            <tr style ="background-color: grey;">
+                {% if current_cid != ns.cid %}
+                    {% if ns.cid != -1 %}
+                    <tr style = "background-color: grey;">
+                    </tr>
+                    <tr style = "background-color: grey;"> <td height = "20"></td></tr>
+                    {% endif %}
+                    {% set ns.cid = current_cid %}
+                    <td style = "background-color: #9C5644; color: #ffffff;" align = "center" height = "50" width = "100"> <b>CLASS: </b></td>
+                    <td style = "background-color: #F56329; color: #ffffff;" align = "center" height = "50" width = "100"> CID: {{class["cid"]}} </td>
+                    <td style = "background-color: #F56329; color: #ffffff;" align = "center" height = "50" width = "100"> Number: {{class["department"]}} {{class["class_num"]}}</td>
+                    <td style = "background-color: #F56329; color: #ffffff;" align = "center" height = "50" width = "100"> Title: {{class["class_title"]}} </td>
+                {% endif %}
+                {% if class["section_id"] != None %}
+                    {% if can_edit == 'T' %}
+                    <form action = "/Section_Add" method = "POST">
+                        <tr>
+                            <td align = "center" height = "50" width = "100" bgcolor = "grey"></td>
+                            <td align = "center" height = "50" width = "100" bgcolor = "grey"><b> SECTION: </b></td>
+                            <td align = "center" height = "50" width = "100" bgcolor = "grey"> 
+                                Section ID: <br> 
+                                <a href = "/Class_Page{{class['section_id']}}"> {{class['section_id']}} </a>
+                                <input type = "hidden" name = "sect_id" value = "{{class['section_id']}}">
+                            </td>
+                            <td align = "center" height = "50" width = "100" bgcolor = "grey"> 
+                                Professor UID: <input type = "text" name = "prof_uid" value = "{{class['professor_uid']}}"  style="background-color:lightgrey">
+                            </td>
+                            <td align = "center" height = "50" width = "100" bgcolor = "grey"> 
+                                Day: 
+                                <label for day></label>
+                                <select name = day id = "day" style = "background-color: lightgrey;">
+                                    {% if class["day"] == "M" %}
+                                        <option value = "M" selected> Monday </option>
+                                        <option value = "T"> Tuesday </option>
+                                        <option value = "W"> Wednesday </option>
+                                        <option value = "R"> Thursday </option>
+                                        <option value = "F"> Friday </option>
+                                    {% elif class["day"] == "T" %}
+                                        <option value = "M" > Monday </option>
+                                        <option value = "T" selected> Tuesday </option>
+                                        <option value = "W"> Wednesday </option>
+                                        <option value = "R"> Thursday </option>
+                                        <option value = "F"> Friday </option>
+                                    {% elif class["day"] == "W" %}
+                                        <option value = "M" > Monday </option>
+                                        <option value = "T"> Tuesday </option>
+                                        <option value = "W" selected> Wednesday </option>
+                                        <option value = "R"> Thursday </option>
+                                        <option value = "F"> Friday </option>
+                                    {% elif class["day"] == "R" %}
+                                        <option value = "M" > Monday </option>
+                                        <option value = "T"> Tuesday </option>
+                                        <option value = "W"> Wednesday </option>
+                                        <option value = "R" selected> Thursday </option>
+                                        <option value = "F"> Friday </option>
+                                    {% elif class["day"] == "F" %}
+                                        <option value = "M" > Monday </option>
+                                        <option value = "T"> Tuesday </option>
+                                        <option value = "W"> Wednesday </option>
+                                        <option value = "R"> Thursday </option>
+                                        <option value = "F" selected> Friday </option>
+                                </select>
+                                {% endif %}
+                            </td>
+                            <td align = "center" height = "50" width = "100" bgcolor = "grey"> 
+                                Time:
+                                <label for time></label>
+                                <select name = time id = "time" style = "background-color: lightgrey;">
+                                    {% if class["timeslot"] == "1" %}
+                                        <option value = "1" selected> 3:00 - 5:30 </option>
+                                        <option value = "2"> 4:00 - 6:30 </option>
+                                        <option value = "3"> 6:00 - 8:30 </option>
+                                    {% elif class["timeslot"] == "2" %}
+                                        <option value = "1"> 3:00 - 5:30 </option>
+                                        <option value = "2" selected> 4:00 - 6:30 </option>
+                                        <option value = "3"> 6:00 - 8:30 </option>
+                                    {% else %}
+                                        <option value = "1"> 3:00 - 5:30 </option>
+                                        <option value = "2" > 4:00 - 6:30 </option>
+                                        <option value = "3" selected> 6:00 - 8:30 </option>
+                                    {% endif %}
+                                </select>
+                            </td>
+                            <td align = "center" height = "50" width = "100" bgcolor = "grey">
+                                <input type = submit name = "edit" value = "confirm changes" style = "background-color: lightgrey;">
+                            </td>
+                            <td align = "center" height = "50" width = "100" bgcolor = "grey">
+                                <input type = submit name = "delete" value = "delete section" style = "background-color: lightgrey">
+                            </td>
+                        </tr>
+                    </form>
+                    {% else %}
+                    <tr>
+                        <td align ="center" style = "background-color: grey;" height = "50" width = "100" ></td>
+                        <td style = "background-color: #9C5644; color: #ffffff;" align = "center" height = "50" width = "100" ><b> SECTION: </b></td>
+                        <td style = "background-color: #BFCC94; color: #000000;" align = "center" height = "50" width = "100"> 
+                            Section ID: <a href = "/Class_Page{{class['section_id']}}"> {{class['section_id']}} </a>
+                            <input type = "hidden" name = "sect_id" value = "{{class['section_id']}}">
+                        </td>
+                        <td style = "background-color: #BFCC94; color: #000000;" align = "center" height = "50" width = "100"> 
+                            Professor UID: {{class['professor_uid']}}
+                        </td>
+                        <td style = "background-color: #BFCC94; color: #000000;" align = "center" height = "50" width = "100"> 
+                            Day: 
+                            {% if class["day"] == "M" %} Monday
+                            {% elif class["day"] == "T" %} Tuesday
+                            {% elif class["day"] == "W" %} Wednesday
+                            {% elif class["day"] == "R" %} Thursday
+                            {% elif class["day"] == "F" %} Friday
+                            {% endif %}
+                        </td>
+                        <td style = "background-color: #BFCC94; color: #000000;" align = "center" height = "50" width = "100"> 
+                            Time:
+                            {% if class["timeslot"] == "1" %} 3:00 - 5:30
+                            {% elif class["timeslot"] == "2" %} 4:00 - 6:30
+                            {% elif class["timeslot"] == "3" %} 6:00 - 8:30
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endif %}
+                {% endif %}
+            </tr>
+    
+            {% endfor %}
+        </table>
+
+    <div class="application_box" style="width: calc(50% + 30px);">
+    <h1 style="text-align: center;"> Add New Section: </h1>
+    <error style="display: flex; justify-content: center; align-items: center;">{{session["errorAdd"]}}</error> <br>
+    <div style="display: flex; justify-content: center; align-items: center;">
+    <form action = "/Section_Add" method = "POST" id="sectionadd">
+        Year: {{session["section_year"]}}<br>
+        Semester: 
+        {% if session["section_sem"] == "1" %}
+            Spring
+        {% elif session["section_sem"] == "2" %}
+            Summer
+        {% else %}
+            Fall
+        {% endif %}
+        <br>
+        Class CID:
+        <input type = text name = "cid" id="cid" value = "" required><br>
+        Section:
+        <input type = text name = "sect"  id="sect" value = "" required><br>
+        Professor UID:
+        <input type = text name = "prof_uid" id="prof_uid" value = "" required><br>
+        Day:
+        <label for day></label>
+        <select name = day id = "day">
+            <option value = "M"> Monday </option>
+            <option value = "T"> Tuesday </option>
+            <option value = "W"> Wednesday </option>
+            <option value = "R"> Thursday </option>
+            <option value = "F"> Friday </option>
+        </select><br>
+        Timeslot:
+        <label for time></label>
+        <select name = time id = "time">
+            <option value = "1"> 3:00 - 5:30 </option>
+            <option value = "2"> 4:00 - 6:30 </option>
+            <option value = "3"> 6:00 - 8:30 </option>
+        </select> <br>
+        <br>
+        <input type = "submit" name = "add" value = "add section">
+    </form>
+    </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    
+    <script type="text/javascript">
+        const sectionadd = document.getElementById('sectionadd')   
+
+        sectionadd.addEventListener('submit', (e) => {  
+            let cid = document.querySelector('#cid').value
+            let sect = document.querySelector('#sect').value
+            let prof_uid = document.querySelector('#prof_uid').value
+
+            let messages = []
+
+            if (cid === '') {
+                messaages.push("CID can't be empty")
+            }
+            else {
+                if (cid.length > 8) {
+                    messages.push("CID max length is 8")
+                }
+                if (!/^\d+$/.test(cid)) {
+                    messages.push("CID must only be numbers")
+                }
+            }
+            if (sect === '') {
+                messages.push('Section cannot be empty')
+            }
+            else {
+                if (sect.length > 2) {
+                    messages.push('Section is max 2 numbers')
+                }
+                if (!/^\d+$/.test(sect)) {
+                    messages.push('Section must be numbers only')
+                }
+            }
+            if (prof_uid === '') {
+                messages.push('Professor UID must be filled in')
+            }
+            else {
+                if (prof_uid.length !== 8) {
+                    messages.push("Professor UID is length 8")
+                }
+                if (!/^\d+$/.test(prof_uid)) {
+                    messages.push("Professor UID must only be numbers")
+                }
+            }
+            
+            if (messages.length > 0 ) {
+                e.preventDefault()
+                messages = messages.join('\n')
+                alert(messages)
+            }
+        })
+    </script>
+    </div>
+    </body>
+</html>

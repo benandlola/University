@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> faculty portal </title>
+    </head>
+  <body>
+    {% include "navbar.html" %}
+
+    <div class = "main">
+        <div class="parent">
+            <h2 class = "All_Student_Table_Text"> Welcome  {{ session['first_name'] }} {{ session['last_name'] }} | UID:{{ session['uid'] }}</h4>
+        </div>
+
+    <h3 class = "All_Student_Table_Header" style= "text-align: center;">Choose a semester: </h3>
+    
+    <form class="sm" method="POST" action="/Faculty_Portal">
+        <select name="semester">
+            {% for semester in session['semesters'] %}
+                {% if semester == session['current_semester'] %}
+                    <option value="{{ semester }}" selected>{{semesters[semester]}}</option>
+                {% else %}
+                    <option value="{{ semester }}">{{ semesters[semester] }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <select name="year">
+            {% for year in session['years'] %}
+                {% if year == session['current_year'] %}
+                    <option value="{{ year }}" selected>{{ year }}</option>
+                {% else %}
+                    <option value="{{ year }}">{{ year }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <input type="submit" value="Submit">
+    </form>
+
+
+
+   <h3 class = "All_Student_Table_Header" style= "text-align: center;">Classes</h3>
+</div>
+    <table class="fac-table">
+        <tr>
+            <b><th align="center" height="50" width="100"> CID </th>
+            <th align="center" height="50" width="100"> Section ID </th>
+            <th align="center" height="50" width="100"> Day </th>
+            <th align="center" height="50" width="100"> Time </th>
+            <th align="center" height="50" width="100"> Class Page </th></b>
+        </tr>
+        {% for class in prof_classes %}
+        <tr>
+            <td align="center" height="50" width="100"> {{class["cid"]}} </td>
+            <td align="center" height="50" width="100"> {{class["section_id"]}} </td>
+            <td align="center" height="50" width="100"> 
+                {% if class["day"] == "M" %}
+                    Monday
+                {% elif class["day"] == "T" %}
+                    Tuesday
+                {% elif class["day"] == "W" %}
+                    Wednesday
+                {% elif class["day"] == "R" %}
+                    Thursday
+                {% elif class["day"] == "F" %}
+                    Friday
+                {% endif %}
+            </td>
+            <td align="center" height="50" width="100"> 
+                {% if class["timeslot"] == "1" %}
+                    3:00- 5:30
+                {% elif class["timeslot"] == "2" %}
+                    5:00 - 7:30
+                {% elif class["timeslot"] == "3" %}
+                    6:00 - 8:30
+                {% endif %}
+            </td>
+            <td align="center" height="50" width="100">
+                <a href="{{url_for('Class_Page', class_ID = class['section_id'])}}">class page</a>
+            </td>
+        </tr>
+        {% endfor %}
+
+
+  </div>
+  </body>
+</html>

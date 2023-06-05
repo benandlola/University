@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer type="text/javascript" src="{{ url_for('static', filename='create_account.js') }}"></script>
+    <link href="/static/styles.css" rel="stylesheet" type="text/css" />
+    <title>Create Account</title>
+    <style>
+    ul {
+    list-style-type: none;
+    }
+    </style>
+</head>
+<body>
+    {% if session['type'] == 'Admin' %}
+    {% include "navbar.html" %}
+    {% else %}    <br><br><br><br><br><br><br><br>
+    {% endif %}
+
+<div class = "main" style="text-align: center;">
+<div class = "createaccount">
+    <div class="application_box" style="width: calc(60% + 30px);">
+    <h1>Create Account</h1>
+    <h2>{{ error }}</h2>
+    <form action="/create_account" method="POST" id="form">
+        <ul>
+        <li>Email: <input type="text" name="email" id="email" required></li> <br>
+        <li>Password:  <input type="password" name="password" id="password" required></li>  <br>
+        <li>Firstname:  <input type="text" name="firstname" id="firstname" required></li> <br>
+        <li>Middle initial:  <input type="text" name="minit" id="minit"></li> <br>
+        <li>Lastname:  <input type="text" name="lastname" id="lastname" required></li> <br>
+        <li>Address:  <input type="text" name="address" id="address" required></li>  <br>
+        <li>SSN:  <input type="text" name="ssn" id="ssn" required></li> <br>
+        </ul>
+
+        {% if session['type'] == 'Admin' %}
+        <select name="user_type" id="user_type">
+            {% for type in user_types %}
+                <option value="{{ type }}">{{ type }}</option>
+            {% endfor %}
+        </select> 
+        <br> <div name="fac" id="fac" style="display: none;"> <br>
+            Department <input type="text" name="dept" id="dept"> <br>  
+            is_CAC <input type="checkbox" name="cac" id="cac" value="T"> <br>    
+            can_teach <input type="checkbox" name="teach" id="can_teach" value="T"> <br>
+            can_advise <input type="checkbox" name="advise" id="can_advise" value="T"> <br>
+            can_review <input type="checkbox" name="review" id="can_review" value="T"> <br>
+        </div>
+        <br> <div name="stud" id="stud" style="display: none;">
+            advisor_id <input type="text" name="ad_id" id="ad_id"> <br>
+            Masters <input type="checkbox" name="masters" id="masters" value="Masters"> <br>
+            PhD <input type="checkbox" name="phd" id="phd" value="PhD"> <br>
+        </div>
+        {% endif %}
+
+        <br>
+    <input type="submit" name="submit" class = "nav_btn" style = "background-color: #F56329;"> 
+    </div>
+    </form>
+    <script type="text/javascript">
+        const usertype = document.querySelector('#user_type')
+        const fac = document.querySelector('#fac')
+        const stud = document.querySelector('#stud')
+
+        if (usertype !== null) {
+            usertype.addEventListener('change', function() {
+                if (usertype.value == 'Faculty') {
+                    fac.style.display = 'block'
+                    stud.style.display = 'none'
+                } 
+                else if (usertype.value == 'Student') {
+                    fac.style.display = 'none'
+                    stud.style.display = 'block'
+                } 
+                else {
+                    fac.style.display = 'none'
+                    stud.style.display = 'none'
+                }
+                }) 
+        }
+    </script>
+</div>
+
+    <br><br><br>
+    <a href="/" class="nav_btn"> return to login </a>
+</div>
+</body>
+</html>

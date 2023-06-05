@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decide</title>
+    <style>   ul {
+        list-style: none;
+      } </style>
+</head>
+<body>
+    {% include "navbar.html" %}
+
+<div class = "main">
+    <div class="application_container">
+        <div class="application_box" style="width: calc(50% + 30px);">
+    <h1 style="text-align: center;">Decision Application</h1>
+    <ul>
+    <li>Name: {{ user['lname'] }}, {{ user['lname'] }} {% if user['minit'] %} {{ user['minit'] }} {% endif %}</li><br>
+    <li> UID: {{ user['uid'] }}</li> <br>
+    <li>Semester and Year of Application: {{ app['semester'] }} , {{ app['year'] }}</li><br>
+    <li>Applying for Degree: {{ app['degree'] }}</li> <br>
+    </ul>
+
+    <ul>
+    <table class="table" id="review_table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Rating</th>
+            <th>Deficiency</th>
+            <th>Reason</th>
+            <th>Advisor ID</th>
+            <th>Comments</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for review in reviews %}
+            <tr class="review_tr">
+                <td>{{ loop.index }}</td>
+                <td>{{ review['rating'] }}</td>
+                <td>{{ review['deficiency'] }}</td>
+                <td>{{ review['reason'] }}</td>
+                <td>{{ review['advisor_id'] }}</td>
+                <td>{{ review['comments'] }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+    </table>
+    </ul>
+
+    <ul>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Rating</th>
+                <th>Generic</th>
+                <th>Credible</th>
+                <th>Writer</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+        
+            {% for rec in recs %}
+            <tr class="rec_tr">
+                {% if rec['message'] %}
+                <td>{{ loop.index }}</td>
+                <td>{{ rec['rating'] }}</td>
+                <td>{{ rec['generic'] }} </td>
+                <td>{{ rec['rcredible'] }} </td>
+                <td>{{ rec['writer'] }}  </td>
+                <td>{{ rec['message'] }}</td>
+                {% endif %}
+            </tr>
+             {% endfor %}
+            
+        </tbody>
+    </table>
+    
+    </ul>
+
+    <ul>
+    <li><strong>Average Rating: </strong>{{ review_avg }}</li> <br> <br>
+    <form action="/decide_application" method="POST">
+        <li>Final Decision: </li>
+        <select name="decide_final">
+            <option value="admitted" selected>Admit</option>
+            <option value="admitaid">Admit w/ Aid</option>
+            <option value="denied">Deny</option>
+        </select>
+        <input type="hidden" name="user_id" value="{{ user['uid'] }}">
+        <br><br> <button type="submit">Submit</button>
+    </form>
+    </ul>
+    </div>  
+    </div>
+</div>
+</body>
+</html>

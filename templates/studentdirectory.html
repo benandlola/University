@@ -1,0 +1,59 @@
+<!--------------------DOCUMENT DESCRIPTION------------------ 
+-This HTML shows the students's directory
+-They view ALL their info here
+-Visible by: Admin, GA, Advisor, Student
+--------------------DOCUMENT DESCRIPTION--------------------> 
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{ x.fname }} {%if x.minit != ' '%}{{x.minit}}.{%endif%} {{ x.lname }} directory</title>
+</head>
+<body>
+  {% include "navbar.html" %}
+
+<div class = "main">
+	<h1>{{ x.fname }} {%if x.minit != ' '%}{{x.minit}}.{%endif%} {{ x.lname }} directory</h1>
+  {% if x.suspended == "T" %}
+  <h1>You are on Academic Suspension</h1>
+  {% endif %}
+	<h2>Enrollment: {{ x.degree }}</h2>
+	<h2>Advisor: {{ adname.fname }} {{ adname.lname }}</h2>
+  {%if has_requested_grad%}
+  <h4>Application for Graduation Pending...</h4>
+  {%endif%}
+
+  <ul>
+    {% if user_type in ["Admin", "Student"]%}
+    <li><a href="/personalinfo/{{x.uid}}">Edit/View Personal Information</a></li>
+    {% endif %}
+
+    <li><a href="/transcript_ads/{{x.uid}}">View Transcript</a></li>
+    <li><a href="/coursecatalog">View Course Catalog</a></li>
+    {% if has_form1 %}
+      <li><a href="/viewform1/{{x.uid}}">View Form 1</a></li>
+      {% if x.suspended == "F"%}
+        {% if has_requested_grad %}
+        <li>Application Submitted</li>
+         {% else %}
+        <li><a href="/applyforGrad/{{x.uid}}">Apply For Graduation</a></li>
+        {% endif %}
+         {% endif %}
+    {% else %}
+      <li><a href="/form1/{{x.uid}}">Fill Out Form 1</a></li>
+    {% endif %}
+    {% if x.degree == 'PHD' %}
+    <li><a href = "/studentaccessthesis/{{x.uid}}">View/Edit Thesis</a></li>
+    {% endif %}
+    {% if user_type in ["GS", "Admin", "Student"] and x.degree == "PhD" %}
+    <li><a href="">View/Edit Thesis</a></li>
+    {% endif %}  
+    {% if user_type == "GS" or user_type == "Admin" %}
+      <li><a href="/students">Return to All Students</a></li>
+    {% endif %}
+      <li><a href="">Log Out</a></li>
+      <li><a href="/form1/{{x.uid}}">Fill Out Form 1</a></li>
+  </ul>
+</div>
+</body>
+</html>
+  

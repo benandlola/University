@@ -1,0 +1,31 @@
+<!--------------------DOCUMENT DESCRIPTION------------------ 
+-This HTML shows the alumni's directory
+-Holds info such as their personal info
+-Visible by: Admin, GA, Alumni
+--------------------DOCUMENT DESCRIPTION--------------------> 
+
+<!DOCTYPE html>
+<html>
+  <head> 
+    <title> {{x.fname}} {%if x.minit != ' '%}{{x.minit}}.{%endif%} {{x.lname}} Directory</title>
+  </head>
+  <body>
+    {% include "navbar.html" %}
+
+    <div class = "main">
+  
+        <h2>{{x.fname}} {%if x.minit != ' '%}{{x.minit}}.{%endif%} {{x.lname}} Directory</h2>
+
+        <h3>Status: {{x.user_type}}</h3>
+        <h4> ID: {{x.uid}} <h4>
+        <ul>
+            
+          <li><a href="/alumnipersonalinfo/{{x.uid}}">Edit/View Personal Information</a></li>
+          <li><a href = "/transcript_ads/{{x.uid}}">View Transcript</a></li>
+        </ul>
+
+      <p><a href = "/logout" > logout</a></p>
+    </div>
+    </body>
+
+</html>

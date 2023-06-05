@@ -1,0 +1,93 @@
+<!--------------------DOCUMENT DESCRIPTION------------------ 
+-This HTML shows the table of all the admin-student matchups
+-They can redirect to change advisor here
+-Visible by: Admin, GA 
+--------------------DOCUMENT DESCRIPTION--------------------> 
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Students and Advisors</title>
+        <link href="/static/student_table.css" rel="stylesheet" type="text/css" />
+        <style>
+            body {
+              background: url("static/images/wallpaper.jpg");
+              background-repeat: no-repeat;
+              background-size: cover;
+            }
+          </style>
+    </head>
+
+    <body>
+        {% include "navbar.html" %}
+
+    <div class = "student-table-main">
+        <div class="parent">
+            <h1 class="GS_Portal_Text">Welcome {{session["first_name"]}} {{session["last_name"]}}  | UID: {{session["uid"]}} | Role: {{session["user_type"]}} </h1>
+        </div>
+        <h3 class= "All_Student_Table_Header">Advisor Assignation</h3>
+
+
+        <form method="POST" action="/asmatch">
+            <div class="search_container"> 
+                <div class="search"> 
+                    <div class="search_row"> 
+                        <div class="col-md-6"> 
+                            <div class="search-1"> 
+                                <i class = "bx bx-search-alt"></i>
+                                <input type="text" name = "studentuid" placeholder="Student UID"> 
+                            </div> 
+                        </div> 
+                        <div class="col-md-6"> 
+                            <div class="search-1"> 
+                                <i class = "bx bx-search-alt"></i>
+                                <input type="text" name = "studentlname" placeholder="Student Last Name"> 
+                            </div> 
+                        </div> 
+                        <div class = "col-md-6">
+                            <div class = "search-1">
+                                <i class = "bx bx-search-alt"></i>
+                                <input type="text" name = "aduid" placeholder="Advisor UID"> 
+                            </div>
+                        </div>
+                        <div class="col-md-6"> 
+                            <div> 
+                                <div class="search-2"> 
+                                    <i class='bx bxs-map' ></i> 
+                                    <input type="text" name = "adlname" placeholder= "    Advisor Last Name">
+                                    <button> Search </button>
+                                </div> 
+                            </div> 
+                        </div> 
+                    </div> 
+                </div>
+            </div>
+            </form>
+            <br><br>
+
+
+        <table class="student-table">
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>Student Name</th>
+                <th>Advisor ID</th>
+                <th>Advisor Name</th>
+                <th>Change Advisor</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in x %}
+            <tr>
+                <td>{{s.uid}}</td>
+                <td>{{s.student_fname}} {{s.student_minit}} {{s.student_lname}}</td>
+                <td>{{s.advisor_id}}</td>
+                <td>{% if s.advisor_id is not none %}{{s.advisor_fname}} {{s.advisor_minit}} {{s.advisor_lname}}{% else %}None{% endif %}</td>
+                <td><a href="/changeadvisor/{{s.uid}}">Change Advisor</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+</div>
+</body>
+</html>

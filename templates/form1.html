@@ -1,0 +1,103 @@
+<!--------------------DOCUMENT DESCRIPTION------------------ 
+-This HTML shows the form to submit form 1
+-Visible by: Admin, GS, Student
+--------------------DOCUMENT DESCRIPTION--------------------> 
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Form 1</title>
+  </head>
+
+  <body>
+    {% include "navbar.html" %}
+
+    <div class="form1">
+    <h1>Form 1</h1>
+    <h2>Student: {{x.fname}} {{ x.minit }} {{ x.lname }}</h2>
+    <h3>UID: {{x.uid}}</h3>
+    <br>
+    <button type="button" onclick="addCourse()" class="nav_btn">Add Course</button>
+    <form action="/submitForm1/{{id}}" method="post">
+        <br>
+        <table>
+          <thead>
+            <tr>
+              <th style="padding: 3px; width: 33%;">Number</th>
+              <th style="padding: 3px; width: 33%;">Courses In Program</th>
+              <th style="padding: 3px; width: 33%;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="course-table-body">
+          </tbody>
+        </table>
+        <button type="submit" onclick="return validateForm()" class="nav_btn">Submit</button>
+      </form>
+    </div>
+      <script>
+      let courseCount = 0;
+      // let rowCount = 1;
+      function addCourse() {
+        var tableBody = document.getElementById("course-table-body");
+        var rowCount = tableBody.rows.length;
+      
+        if (rowCount >=12) {
+          document.getElementById("add-course-btn").disabled = true;
+          return;
+        }
+      
+        var newRow = tableBody.insertRow(rowCount);
+        var courseCount = rowCount + 1;
+        newRow.innerHTML = '<td>'+ courseCount +'</td>'+
+                            '<td>' +
+                            '<select name="course_' + rowCount + '">' +
+                            '<option value=""></option>' +
+                            '{% for c in course %}' +
+                            '  <option value="{{ c.cid }}">{{ c.department }} {{ c.class_num }} - {{ c.cid }}</option>' +
+                            '{% endfor %}' +
+                            '</select>' +
+                            '</td>'+'<td><button type="button" onclick="removeCourse(this)">Remove</button></td>' ;
+      
+        // Attach an event listener to the new select element
+        var newSelect = newRow.getElementsByTagName("select")[0];
+        newSelect.addEventListener("change", function(event) {
+          if (isOptionSelected(event.target.value)) {
+            alert("This option is already selected in another dropdown.");
+            event.target.value = "";
+          }
+        });
+      }
+      
+
+      function removeCourse(button) {
+        var row = button.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+      }
+
+      
+      function isOptionSelected(selectedOption) {
+        var selects = document.getElementsByTagName("select");
+        for (var i = 0; i < selects.length; i++) {
+          if (selects[i].value === selectedOption && selects[i] !== event.target) {
+            return true;
+          }
+        }
+        return false;
+      }
+
+      function validateForm() {
+        var selects = document.getElementsByTagName("select");
+        for (var i = 0; i < selects.length; i++) {
+          if (selects[i].value === "") {
+            alert("Please select a value in all dropdown menus.");
+            return false;
+          }
+        }
+        return true;
+      }
+      
+      
+      </script>
+      <a href = "/All_Student_Portal"><button>Go back to directory</button></a>
+  </div>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TranscriptApps</title>
+    <style>   ul {
+        list-style: none;
+      } </style>
+</head>
+<body>
+    {% include "navbar.html" %}
+
+<div class = "main" style="text-align: center;">
+    <div class="application_box" style="width: calc(30% + 30px);">
+    <h2 style="text-align: center;">Submit your transcript</h2>
+    <form action="/transcriptapps" id="trans" method="POST">
+        <ul>
+        <li>You will mail your transcript <input type="checkbox" id="mail" name="mail" value="M"> </li>
+        <br> <li>Or enter the link to your schools registrar <input type="text" id="online" name="online"> </li>
+        <br> <li><input type="submit" name="submit"> </li>
+        </ul>
+    </form>
+    <script type="text/javascript">         
+        const form = document.getElementById('trans')
+        form.addEventListener('submit', (e) => {
+            const mail = document.querySelector('#mail')
+            const online = document.querySelector('#online').value
+
+            let messages = []
+
+            if (mail.checked && online !== '') {
+                messages.push('You can only mail or submit online')
+            }
+    
+            if (messages.length > 0 ) {
+                e.preventDefault()
+                messages = messages.join('\n')
+                alert(messages)
+            }
+        })
+    </script>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>View/Edit Thesis</title>
+    </head>
+
+    <body>
+        {% include "navbar.html" %}
+    
+    <div class="thesisview">
+        {%if x.approved == "T"%}
+        <h2 class="status"> PHD Thesis Approved </h2>
+        {%endif%}
+        <p class="status-pending" >Current Thesis</p>
+        <p>{{x.thesis}}</p>
+    
+
+        {% if x.approved == 0 %}
+        <p>Not Approved</p>
+        {% elif x.approved == 1 %}
+        <p>Approved</p>
+        {% endif %}
+
+        <form id = changethesis method = 'POST'>
+            <p>Change Thesis:</p>
+            <input type = "text" name = "thesis" id = "thesis"> <br>
+            <input type = "submit" name = "submit">
+        </form>
+
+        <p><a href = "/All_Student_Portal" class="nav_btn">return</a></p>
+    </div>
+    <script type="text/javascript">         
+        const changethesis = document.getElementById('changethesis')
+        changethesis.addEventListener('submit', (e) => {
+            const thesis = document.querySelector('#thesis').value
+
+            let = messages = []
+
+            if (thesis !== '') {
+                if (thesis.length > 50) {
+                    messages.push('Thesis is max 50 characters long')
+                } 
+            }
+    
+            if (messages.length > 0 ) {
+                e.preventDefault()
+                messages = messages.join('\n')
+                alert(messages)
+            }
+        })
+    </script>
+    </body>
+</html>

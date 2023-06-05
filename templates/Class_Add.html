@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> course catalogue editor </title>
+    </head>
+
+    <body>
+        {% include "navbar.html" %}    
+    <div class = "main">
+
+        <h1> Current Course Catalogue: </h1>
+        <error>{{session["ClassAddError"]}}</error>
+        <div class="viewform1" style="margin: 20px auto; padding: 10px;">
+        <table border = "5" cellspacing = "0" align = "center"> 
+            <tr>
+                <b><th align = "center" height = "50" width = "100"> CID </th>
+                <th align = "center" height = "50" width = "100"> department </th>
+                <th align = "center" height = "50" width = "100"> class number </th>
+                <th align = "center" height = "50" width = "100"> title </th>
+                <th align = "center" height = "50" width = "100"> credits </th>
+                <!-- <td align = "center" height = "50" width = "100"> submit changes</td></b> -->
+            </tr>
+            {% for class in all_classes %}
+            <form action = "/Class_Add" method = "POST">
+            <tr>
+                <td align = "center" height = "50" width = "100">
+                    {{class["cid"]}}
+                    <!-- <input type = "hidden" name = "CID_cid" value = "{{class['cid']}}"> -->
+                </td>
+                <td align = "center" height = "50" width = "100">
+                    {{class["department"]}}
+                    <!-- <input type = "text" name = "dept" value = "{{class['department']}}"> -->
+                </td>
+                <td align = "center" height = "50" width = "100">
+                    {{class["class_num"]}}
+                    <!-- <input type = "text" name = "num" value = "{{class['class_num']}}"> -->
+                </td>
+                <td align = "center" height = "50" width = "100">
+                    {{class["class_title"]}}
+                    <!-- <input type = "text" name = "title" value = "{{class['class_title']}}"> -->
+                </td>
+                <td align = "center" height = "50" width = "100">
+                    {{class['credit_hours']}}
+                    <!-- <input type = "text" name = "credits" value = "{{class['credit_hours']}}"> -->
+                </td>
+                <!-- <td align = "center" height = "50" width = "100">
+                    <input type = "submit" name = "edit classes" value = "submit edits">
+                </td> -->
+
+            </tr>
+            </form>
+            {% endfor %}
+        </table>
+    </div>
+
+        <div class = "application_box" style= "width: 45%; text-align: center; margin-bottom: 20px;">
+        <h1> Add a New Class to the Course Catalogue: </h1>
+        <error>{{session["ClassAddError"]}}</error>
+        <form action = "/Class_Add" method = "POST" id = "classadd">
+            CID:
+            <input type = "text" name = "cid" id="cid" value =""><br>
+            Department:
+            <input type = "text" name = "dept" id="dept" value = ""><br>
+            Class Number:
+            <input type = "text" name = "class_num" id="class_num" value = ""><br>
+            Title:
+            <input type = "text" name = "title" id="title" value = ""><br>
+            Credit Hours:
+            <input type = "text" name = "credits" id ="credits" value = ""><br>
+            <input type = "submit" name = "submit" value = "add class">
+        </form>
+    </div>
+    <br>
+        <script type="text/javascript">
+            const classadd = document.getElementById('classadd')   
+   
+            classadd.addEventListener('submit', (e) => {  
+                let cid = document.querySelector('#cid').value
+                let dept = document.querySelector('#dept').value
+                let class_num = document.querySelector('#class_num').value
+                let title = document.querySelector('#title').value
+                let credits = document.querySelector('#credits').value
+
+                let messages = []
+
+                if (cid === '') {
+                    messaages.push("CID can't be empty")
+                }
+                else {
+                    if (cid.length > 8) {
+                        messages.push("CID max length is 8")
+                    }
+                    if (!/^\d+$/.test(cid)) {
+                        messages.push("CID must only be numbers")
+                    }
+                }
+                if (dept === '') {
+                    messages.push('Department cannot be empty')
+                }
+                else {
+                    if (dept.length > 8) {
+                        messages.push('Department is max 8 characters')
+                    }
+                    if (!/^[a-zA-Z]+$/.test(dept)) {
+                        messages.push('Department must be letters only')
+                    }
+                }
+                if (class_num === '') {
+                    messages.push('Class number must be filled in')
+                }
+                else {
+                    if (class_num.length > 8) {
+                        messages.push("Class number max length is 8")
+                    }
+                    if (!/^\d+$/.test(class_num)) {
+                        messages.push("Class number must only be numbers")
+                    }
+                }
+                if (title === '') {
+                    messages.push('Title must be filled in')
+                }
+                else {
+                    if (title.length > 32) {
+                        messages.push("Title max length is 32")
+                    }
+                    if (!/^[a-zA-Z]+$/.test(title)) {
+                        messages.push('Title must be letters only')
+                    }
+                }
+                if (credits === '') {
+                    messages.push('Credits must be filled in')
+                }
+                else {
+                    if (credits.length > 1) {
+                        messages.push("Credits max length is 1")
+                    }
+                    if (!/^\d+$/.test(credits)) {
+                        messages.push("Credits must be a number")
+                    }
+                
+                }
+                if (messages.length > 0 ) {
+                    e.preventDefault()
+                    messages = messages.join('\n')
+                    alert(messages)
+                }
+            })
+        </script>
+
+    </div>
+    </body>
+</html>

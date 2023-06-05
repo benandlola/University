@@ -1,0 +1,23 @@
+-- Active: 1679512962869@@regs13-taylor.cwu10kylfjr3.us-east-1.rds.amazonaws.com@3306@university
+INSERT INTO classes VALUES (1,'CSCI',6221,'SW Paradigms',3);
+INSERT INTO classes VALUES (2,'CSCI',6461,'Computer Architecture',3);
+INSERT INTO classes VALUES (3,'CSCI',6212,'Algorithms',3);
+INSERT INTO classes VALUES (4,'CSCI',6220,'Machine Learning',3);
+INSERT INTO classes VALUES (5,'CSCI',6232,'Networks 1',3);
+INSERT INTO classes VALUES (6,'CSCI',6233,'Networks 2',3);
+INSERT INTO classes VALUES (7,'CSCI',6241,'Database 1',3);
+INSERT INTO classes VALUES (8,'CSCI',6242,'Database 2',3);
+INSERT INTO classes VALUES (9,'CSCI',6246,'Compilers',3);
+INSERT INTO classes VALUES (10,'CSCI',6260,'Multimedia',3);
+INSERT INTO classes VALUES (11,'CSCI',6251,'Cloud Computing',3);
+INSERT INTO classes VALUES (12,'CSCI',6254,'SW Engineering',3);
+INSERT INTO classes VALUES (13,'CSCI',6262,'Graphics 1',3);
+INSERT INTO classes VALUES (14,'CSCI',6283,'Security 1',3);
+INSERT INTO classes VALUES (15,'CSCI',6284,'Cryptography',3);
+INSERT INTO classes VALUES (16,'CSCI',6286,'Network Security',3);
+INSERT INTO classes VALUES (17,'CSCI',6325,'Algorithms 2',3);
+INSERT INTO classes VALUES (18,'CSCI',6339,'Embedded Systems',3);
+INSERT INTO classes VALUES (19,'CSCI',6384,'Cryptography 2',3);
+INSERT INTO classes VALUES (20,'ECE',6241,'Communication Theory',3);
+INSERT INTO classes VALUES (21,'ECE',6242,'Information Theory',2);
+INSERT INTO classes VALUES (22,'MATH',6210,'Logic',2);

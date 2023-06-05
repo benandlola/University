@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Students and Advisors</title>
+    <link href="/static/student-table.css" rel="stylesheet" type="text/css">
+    <style>
+        body {
+            background: url("/static/images/wallpaper.jpg") no-repeat;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    {% include "navbar.html" %}    
+    <div class = "main" style="margin: 20px;">
+<table class="student-table" style="margin-bottom: 10px">
+    <tr>
+        <th>Student UID</th>
+        <th>Student Name</th>
+        <th>Advisor Name</th>
+        <th>Advisor UID</th>
+        <th>Assign</th>
+        <th>Confirm</th>
+    </tr>
+    <form action="/update_advisor/{{id}}" method="post">
+        <tr>
+            <td>{{ studentinfo.uid }} </td>
+            <td>
+                {{ studentinfo.student_fname }} {{ studentinfo.student_minit }} {{ studentinfo.student_lname }}
+            </td>
+            <td>
+                {% if advisor_id is not none %} 
+                {{ studentinfo.advisor_fname }} {{ studentinfo.advisor_minit }} {{ studentinfo.advisor_lname }}
+                {% else %}None{% endif %}
+            </td>
+            <td>
+                 {% if advisor_id is not none %} 
+                 {{studentinfo.advisor_id}}
+                 {% else %}None{% endif %}
+            </td>
+            <td>
+                <select id="newAdvisor" name="newAdvisor" required>
+                    {% for a in advisors %}
+                        {% if studentinfo.advisor_id == a.uid %}
+                            <option value="{{ a.uid }}" selected>{{ a.fname }} {{ a.minit }} {{ a.lname }}</option>
+                        {% else %}
+                            <option value="{{ a.uid }}">{{ a.fname }} {{ a.minit }} {{ a.lname }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </td>
+            <td>
+                <input type="submit" value="Assign">
+            </td>
+        </tr>
+    </form>
+  </table>
+  <a href="/asmatch" class="nav_btn" style="margin-bottom: 40px">Go back</a>
+  <br>
+</div>
+</hmtl>

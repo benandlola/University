@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Students</title>
+        <link href="/static/student_table.css" rel="stylesheet" type="text/css" />
+        <style>
+            body {
+              background: url("static/images/wallpaper.jpg");
+              background-repeat: no-repeat;
+              background-size: cover;
+            }
+        </style>
+    </head>
+    
+    <body>
+        {% include "navbar.html" %}
+        <div class="student-table-main" style="margin: 20px; padding: 10px;">
+            <h3 class="All_Student_Table_Header">All Students</h3>
+
+            <form method="POST" action="/gradrequests">
+                <div class="search_container"> 
+                    <div class="search"> 
+                        <div class="search_row"> 
+                            <div class="col-md-6"> 
+                                <div class="search-1"> 
+                                    <i class='bx bx-search-alt'></i> 
+                                    <ul><label for degree></label>
+                                        <select name = degree id = degree>
+                                            <option value = "%"> Any Degree </option>
+                                            {% if current_deg == "PhD" %}
+                                                <option value = "PhD" selected> PhD </option>
+                                            {% else %}
+                                                <option value = "PhD"> PhD </option>
+                                            {% endif %}
+                                            {% if current_deg == "MS" %}
+                                                <option value = "MS" selected> Masters </option>
+                                            {% else %}
+                                                <option value = "MS"> Masters </option>
+                                            {% endif %}
+                                        </select>
+                                    <label for sem></label>
+                                        <select name = sem id = sem>
+                                            <option value = "%" selected> Any Semester </option>
+                                            {% for sem in valid_sems %}
+                                                {% if sem == current_sem %}
+                                                    <option value = "{{sem}}" selected> {{sem}} </option>
+                                                {% else %}
+                                                    <option value = "{{sem}}"> {{sem}} </option>
+                                                {% endif %}
+                                            {% endfor %}  
+                                        </select>
+                                    <label for year></label>
+                                        <select name = year id = year>
+                                            <option value = "%" selected> Any Year </option>
+                                            {% for year in valid_years %}
+                                                {% if year | int == current_year | int %}
+                                                    <option value = {{year}} selected> {{year}} </option>
+                                                {% else %}
+                                                    <option value = {{year}}> {{year}}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    <label for audit></label>
+                                        <select name = audit id = audit>
+                                            <option value = "%" selected> Any Audit Status </option>
+                                            {% if current_audit == "F" %}
+                                                <option value = "F" selected> Failed Audit </option>
+                                            {% else %}
+                                                <option value = "F"> Failed Audit</option>
+                                            {% endif %}
+                                            {% if current_audit == "T" %}
+                                                <option value = "T" selected> Passed Audit </option>
+                                            {% else %}
+                                                <option value = "T"> Passed Audit</option>
+                                            {% endif %}
+                                        </select>
+                                </div> 
+                            </div> 
+                            <div class = "col-md-6">
+                                <div class = "search-1">
+                                    <i class = "bx bx-search-alt"></i>
+                                    <input type="text" name = "uid" placeholder="Student UID"> 
+                                </div>
+                            </div>
+                            <div class = "col-md-6">
+                                <div class = "search-1">
+                                    <i class = "bx bx-search-alt"></i>
+                                    <input type="text" name = "lname" placeholder="Student Last Name"> 
+                                </div>
+                            </div>
+                            <div class="col-md-6"> 
+                                <div> 
+                                    <div class="search-2"> 
+                                        <i class='bx bxs-map' ></i> 
+                                        <input type="text" name = "aduid" placeholder="    Advisor UID">
+                                        <button> Search </button>
+                                    </div> 
+                                </div> 
+                            </div> 
+                        </div> 
+                    </div>
+                </div>
+                </form>
+                <br><br>
+          
+
+
+
+
+                <table class="student-table">
+                    <thead>
+                        {% if x|length == 0 %}
+                        <h2 class="All_Student_Table_Text">No Grad Requests</h2>
+                        <tr></tr>
+                        {% else %}
+                        <tr>
+                            <th>ID</th>
+                            <th>Student</th>
+                            <th>Advisor ID</th>
+                            <th>Advisor Name</th>
+                            <th>Graduation Year and Semester</th>
+                            <th>Passed Audit?</th>
+                            <th>Graduate?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in x %}
+                            <tr>
+                                <td>{{ i.uid }}</td>
+                                <td>{{ i.student_name }}</td>
+                                <td>{{ i.advisor_id }}</td>
+                                <td>{{ i.advisor_name }}</td>
+                                <td>{{semesters[i.semester]}} {{i.year}}</td>
+                                {% if i.approved == 'F' %}
+                                    <td>No</td>
+                                    <td><a href="/rejectgrad/{{ i.uid }}">Reject Graduation</a></td>
+                                {% else %}
+                                    <td>Yes</td>
+                                    <td><a href="/graduate/{{ i.uid }}">Graduate Here</a></td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    </body>
+</html>

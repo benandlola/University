@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Transcript</title>
+    <link rel="stylesheet" type="text/css" href="/transcript.css">
+  </head>
+  <body>
+    {% include "navbar.html" %}
+
+    <div style="text-align: center;">
+      <div style="display: inline-block; margin-top: 20px;">
+
+      </div>
+      <div style="display: inline-block; margin-top: 20px;">
+        <a href="#" class="nav_btn" style="display: inline-block;" onclick="downloadPDF()">Download Transcript</a>
+      </div>
+    </div>
+
+    <div class="transcript-page" style="padding-top: 30px;">
+      <h1>Transcript for {{ session['student_name'].fname }} {{ session['student_name'].minit }} {{ session['student_name'].lname }}</h1>
+      <p><strong>Student ID: {{student_ID}}</strong></p>
+      <p><strong>GPA: {{ gpa }}</strong></p>
+      <p><strong>Total Credit Hours: {{ total_credit_hours }}</strong></p>
+      <table>
+        <thead>
+          <tr>
+            <th>CID</th>
+            <th>Department</th>
+            <th>Class Number</th>
+            <th>Class Title</th>
+            <th>Credit Hours</th>
+            <th>Grade</th>
+            <th>Semester</th>
+            <th>Year</th>
+            <th>Professor</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for class_taken in session['classes_taken'] %}
+          <tr>
+            <td><a href = "/Class_Page{{class_taken.section_id}}" style="color: #000; text-decoration:none;">{{ class_taken.cid }}</td> 
+            <td>{{ class_taken.department }}</td>
+            <td>{{ class_taken.class_num }}</td>
+            <td>{{ class_taken.class_title }}</td>
+            <td>{{ class_taken.credit_hours }}</td>
+            <td>{{ class_taken.grade }}</td>
+            {%if class_taken.semester =="1"%}
+            <td>Spring</td>
+            {%endif%}
+            {%if class_taken.semester =="2"%}
+            <td>Summer</td>
+            {%endif%}
+            {%if class_taken.semester =="3"%}
+            <td>Fall</td>
+            {%endif%}
+            <td>{{ class_taken.year }}</td>
+            <td>{{ class_taken.fname }} {{ class_taken.minit }} {{ class_taken.lname }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      function downloadPDF() {
+        // Get transcript page HTML
+        var transcriptHTML = document.querySelector('.transcript-page').innerHTML;
+
+        // Create a new window to generate PDF
+        var newWindow = window.open('', '', 'height=500,width=800');
+
+        // Add the transcript HTML to the new window
+        newWindow.document.write('<html><head><title>Transcript</title></head><body>');
+        newWindow.document.write(transcriptHTML);
+        newWindow.document.write('</body></html>');
+
+        // Generate PDF
+        newWindow.document.close();
+        newWindow.print();
+      }
+    </script>
+  </body>
+</html>

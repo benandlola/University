@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Userpage</title>
+    <style>
+        ul {
+        list-style-type: none;
+        }
+        li {
+            padding: 10px;
+        }
+        </style>
+</head>
+<body>
+    {% include "navbar.html" %}
+
+<div class = "main">
+    <div class="application_box" style="width: calc(40% + 30px);">
+    <h1 style="text-align: center;">{{ error }}</h1>
+    <h1 style="text-align: center;">View/Edit Personal Info</h1>
+    <form action="/user_page/{{ cur_user['uid'] }}" id="userpage" method="POST">
+    <ul>
+        <li>
+            UID: {{ cur_user['uid'] }}
+         </li> 
+         <li>
+            User Type: {{ cur_user['user_type'] }}
+         </li>
+         <li>
+            <label for="email"> Email:  </label>
+            <input type="text" id="email" name="email" value="{{ cur_user['email'] }}">
+         </li> 
+         <li>
+            <label for="password">Password: </label>
+            <input type="text" id="password" name="password" value="{{ cur_user['password'] }}">
+         </li> 
+         <li>
+            <label for="firstname">Firstname: </label>
+            <input type="text" id="firstname" name="firstname" value="{{ cur_user['fname'] }}">
+         </li> 
+         {% if cur_user['minit'] %}
+         <li>
+            <label for="minit">Middle Initial: </label>
+            <input type="text" id="minit" name="minit" value="{{ cur_user['minit'] }}">
+         </li> 
+         {% endif %}
+         <li>
+            <label for="lastname">Lastname: </label>
+            <input type="text" id="lastname" name="lastname" value="{{ cur_user['lname'] }}">
+         </li> 
+         <li>
+            <label for="address">Address: </label>
+            <input type="text" id="address" name="address" value="{{ cur_user['address'] }}">
+         </li> 
+         
+        <li>
+            <input type="submit" name="submit">
+        </li>
+    </ul>
+    </form>
+        <!--
+        SSN <input type="text" id="ssn" name="ssn"> 
+        <select name="user_type" id="user_type">
+            {% for type in user_types %}
+                <option id="user_t" value="{{ type }}">{{ type }}</option>
+            {% endfor %}
+        </select>
+        <div name="fac" id="fac" style="display: none;">
+            department <input type="text" name="dept" id="dept"> <br>  
+            is_CAC <input type="checkbox" name="cac" id="cac" value="T"> <br>    
+            can_teach <input type="checkbox" name="teach" id="can_teach" value="T"> <br>
+            can_advise <input type="checkbox" name="advise" id="can_advise" value="T"> <br>
+            can_review <input type="checkbox" name="review" id="can_review" value="T"> <br>
+        </div>
+        <div name="stud" id="stud" style="display: none;">
+            Advisor ID <input type="text" name="ad_id" id="ad_id"> <br>
+            Masters <input type="checkbox" name="masters" id="masters" value="Masters"> <br>
+            PhD <input type="checkbox" name="phd" id="phd" value="PhD"> <br>
+            suspended <input type="checkbox" name="susepended" id="suspended" value="T"> <br>
+        </div>
+     -->
+
+    <script type="text/javascript">
+        const userpage = document.getElementById('userpage')   
+        /*
+        const usertype = document.querySelector('#user_type')
+        const fac = document.querySelector('#fac')
+        const stud = document.querySelector('#stud')
+
+        usertype.addEventListener('change', function() {
+            if (usertype.value == 'Faculty') {
+                fac.style.display = 'block'
+                stud.style.display = 'none'
+            } 
+            else if (usertype.value == 'Student') {
+                fac.style.display = 'none'
+                stud.style.display = 'block'
+            } 
+            else {
+                fac.style.display = 'none'
+                stud.style.display = 'none'
+            }
+        })
+        */
+        userpage.addEventListener('submit', (e) => {     
+            const email = document.querySelector('#email').value
+            const pass = document.querySelector('#password').value
+            const fname = document.querySelector('#firstname').value
+            const minit = document.querySelector('#minit').value
+            const lname = document.querySelector('#lastname').value
+            const address = document.querySelector('#address').value
+            /*
+            const ssn = document.querySelector('#ssn').value
+            const dept = document.querySelector('#dept').value
+            const masters = document.querySelector('#masters')
+            const phd = document.querySelector('#phd')
+            const ad_id = document.querySelector('#ad_id').value
+            */
+
+            let messages = []
+
+            if (email !== '') {
+                if (!/^.+@.+$/.test(email) || email.length > 50) {
+                    messages.push('Invalid email')
+                }
+            }
+            if (pass !== '') {
+                if (pass.length > 50) {
+                    messages.push('Password is too long')
+                }
+            }
+            if (fname !== '') {
+                if (fname.length > 50) {
+                    messages.push('Name cannot be longer than 50 characters')
+                }
+                if (!/^[a-zA-Z]+$/.test(fname)) {
+                    messages.push('First name must be letters only')
+                }
+                
+            }
+            if (minit !== '') {
+                if (minit.length !== 1 || !/^[a-zA-Z]+$/.test(minit)) {
+                    messages.push('Middle initial can only be one letter')
+                }
+                
+            }
+            if (lname !== '') {
+                if (lname.length > 50) {
+                    messages.push('Last name cannot be longer than 50 characters')
+                }
+                if (!/^[a-zA-Z]+$/.test(lname)) {
+                    messages.push('Last name must be letters only')
+                }
+            }
+            if (address !== '') {
+                if (address.length > 100) {
+                    messages.push('Address cannot be longer than 100 characters')
+                }
+            }
+            /*
+            if (ssn !== '') {
+                if (ssn.length !== 9 || !/^\d+$/.test(ssn)) {
+                    messages.push('SSN is invalid. Must be 9 numbers')
+                }
+            }
+            
+
+            if (dept !== '') {
+                if (!/^[a-zA-Z]+$/.test(dept)) {
+                    messages.push('Department must be letters only')
+                }
+                if (dept.length > 50) {
+                    messages.push('Department must be max 50 characters')
+                }
+            }
+            if (ad_id !== '') {
+                if (ad_id.length !== 8 || !/^\d+$/.test(ad_id)) {
+                    messages.push('Advisor ID must be a valid advisor id')
+                }
+            }
+            if (masters.checked && phd.checked) {
+                messages.push('Student can only be Masters or PhD')
+            }
+            */
+            if (messages.length > 0 ) {
+                e.preventDefault()
+                messages = messages.join('\n')
+                alert(messages)
+            }
+        })
+    </script>
+    </div>
+</div>
+</body>
+</html>

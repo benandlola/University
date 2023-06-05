@@ -1,0 +1,108 @@
+<html>
+    <head>
+        <title> View Advisor Hold Form </title>
+    </head>
+    <style>
+        .error {
+                /* display: flex; */
+                justify-content: center;
+                align-items: center;
+                background-color: #ffffff;
+                color: black;
+                width: 50%;
+                padding: 20px;
+                border-radius: 10px;
+                text-align: center;
+                margin: auto;
+            }
+    </style>
+<body>
+{% include "navbar.html" %}
+
+<!-- POSSIBILITIES:
+    - hold_status: submitted, accepted, none
+    - user: student, faculty
+-->
+
+{% if hold_status == "none" %}
+<br><br><br>
+<div class = "error">
+    <h1>{{student_info["fname"]}} {{student_info["lname"]}} does not have an advising hold form to Review</h1>
+    <a href = "/facultyviewstudents" class = "nav_btn" style> Return </a>
+</div>
+{% else %}
+
+<div class = "parent">
+    <h1 class="GS_Portal_Text"> Advising Hold Form For: <br>
+    {{student_info["fname"]}} {{student_info["lname"]}} <br>
+    </h1>
+</div>
+<h3 class = "All_Student_Table_Header">  UID: {{student_info["uid"]}} </h3>
+   
+
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!VIEW CLASSES!!!!!!!!!!!!!!!!!!!!!!-->
+<div  class="viewschedule">
+    <table border="5" cellspacing="0" align="center">
+        <tr>
+            <th align="center" height="50" width="100" style="background-color: #3D3D3D;">
+                <b>{% if sem == "1" %}
+                    Spring
+                {% elif sem == "2" %}
+                    Summer
+                {% else %}
+                    Fall
+                {% endif %}
+                {{ year }}</b>
+                </th>
+            <th align="center" height="50" width="100">
+                <b>Monday</b>
+            </th>
+            <th align="center" height="50" width="100">
+                <b>Tuesday</b>
+            </th>
+            <th align="center" height="50" width="100">
+                <b>Wednesday</b>
+            </th>
+            <th align="center" height="50" width="100">
+                <b>Thursday</b>
+            </th>
+            <th align="center" height="50" width="100">
+                <b>Friday</b>
+            </th>
+        </tr>
+        {% for period in range(3) %}
+        <tr>
+            <td align="center" height="50" widht="100" style="background-color: #5C5C5C;">
+                <b>{{ session['different_periods'][period] }}</b>
+            </td>
+            {% for day in range(5) %}
+            <td align="center" height="50" widht="100">
+                <b>{{ session['schedule'][period][day][0] }} </b>
+                {% if session['schedule'][period][day][0] != 'free period' %}
+                    <br> CID: {{session['schedule'][period][day][2]}}
+                {% endif %}
+                {% if session['schedule'][period][day][0] != 'free period' and session["user_type"] != "Student" %}
+                    <br> <a href={{ url_for('Class_Page', class_ID = session['schedule'][period][day][1]) }}>class page</a>
+                {% endif %}
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+
+
+    {% if hold_status == "submitted" and session["user_type"] != "Student" %}
+        <form action = "/Advising_Hold_Form{{student_info['uid']}}" method = "POST">
+            <input type = submit name = submit value = "accept form" class = "nav_btn">
+            <input type = hidden name = "accepting form" value = "accepting form">
+        </form>
+        <form action = "/Advising_Hold_Form{{student_info['uid']}}" method = "POST">
+            <input type = submit name = submit value = "reject form" class = "nav_btn">
+            <input type = hidden name = "rejecting form" value = "rejecting form">
+        </form>
+    {% endif %}
+
+    {% endif %}
+</div>
+</body>

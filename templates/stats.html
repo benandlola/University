@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Stats! </title>
+    </head>
+
+<body>
+{% include "navbar.html" %}
+<div class = "main">
+
+    <form action = "/Get_Stats" method = "POST">
+        <div class="application_box" style="width: calc(30% + 30px);">
+        <h1 style="text-align: center;">  <b>Search By: </b></h1>
+        <div style="display: flex; justify-content: center; align-items: center;">
+        Year:
+        <label for year> </label>
+        <select name = year id = "year">
+            <option value = "%" selected> Any Year</option>
+            {% for year in valid_years %}
+                {% if year | int == current_year | int %}
+                    <option value = {{year}} selected> {{year}} </option>
+                {% else %}
+                    <option value = {{year}}> {{year}} </option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        &nbsp; &nbsp;
+        Semester:
+        <label for semester> </label>
+        <select name = semester id = "semester">
+            <option value = "%" selected> Any Semester</option>
+            {% for sem in valid_semesters %}
+            {% if sem == current_sem %}
+                <option value = {{sem}} selected> {{sem}} </option>
+            {% else %}
+                <option value = {{sem}}> {{sem}} </option>
+            {% endif %}
+            {% endfor %}
+        </select>
+        &nbsp; &nbsp;
+        Degree:
+        <label for degree> </label>
+        <select name = degree id = degree>
+            <option value = "%" selected> Any Degree </option>
+            {% if current_deg == "PhD" %}
+                <option value = "PhD" selected> PhD </option>
+            {% else %}
+                <option value = "PhD" > PhD </option>
+            {% endif %}
+            {% if current_deg == "MS" %}
+                <option value = "MS" selected> Masters </option>
+            {% else %}
+                <option value = "MS" > Masters </option>
+            {% endif %}
+        </select>
+        &nbsp; &nbsp;
+        <input type = "submit" name = "submit" value = "search">
+        <br><br>
+    </form>
+    </div>
+    </div>
+
+    <div class="viewform1" style="margin: 20px auto; padding: 10px;">
+    <table>
+        <tr> 
+            <th>Type</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>Total Applications:</td>
+            <td>{{total_apps}}</td>
+        </tr>
+        <tr>
+            <td>Total Rejected Applications:</td>
+            <td> {{total_rejected}} </td>
+        </tr>
+        <tr>
+            <td>Total Accepted Applications </td>
+            <td> {{total_accepted}} </td>
+        </tr>
+    </table>
+
+    <table>
+            <tr> 
+                <th>Type</th>
+                <th>Value</th>
+            </tr>
+        <tr>
+            <td>Average GPA of Accepted Applicants: </td>
+            <td> {{'{:.2f}'.format(average_GPA_admit)}} </td>
+        </tr>
+        <tr>
+            <td> Average GPA of Rejected Applicants:</td>
+            <td> {{'{:.2f}'.format(average_GPA_reject)}} </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr> 
+            <th>Type</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>Total Accepted Applicants who submitted a GRE:</td>
+            <td>{{total_GRE_accept}} </td>
+        </tr>
+        <tr>
+            <td>Average Total GRE score of accepted applicants:</td>
+            <td>{{'{:.2f}'.format(average_total_accept)}} </td>
+        </tr>
+        <tr>
+            <td>Average Verbal GRE score of accepted applicants:</td>
+            <td>{{'{:.2f}'.format(average_verbal_accept)}}</td>
+        </tr>
+        <tr>
+            <td>Average Quantitative GRE score of accepted applicants: </td>
+            <td>{{'{:.2f}'.format(average_quant_accept)}}</td>
+        </tr>
+    </table>
+
+    <table>
+        <tr> 
+            <th>Type</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>Total Rejected Applicants who submitted a GRE:</td>
+            <td>{{total_GRE_reject}}</td>
+        </tr>
+        <tr>
+            <td>Average Total GRE score of rejected applicants:</td>
+            <td>{{'{:.2f}'.format(average_total_reject)}}</td>
+        </tr>
+        <tr>
+            <td> Average Verbal GRE score of rejected applicants:</td>
+            <td>{{'{:.2f}'.format(average_verbal_reject)}}</td>
+        </tr>
+        <tr>
+            <td>Average Quantitative GRE score of rejected applicants:</td>
+            <td> {{'{:.2f}'.format(average_quant_reject)}}</td>
+        </tr>
+    </table>
+
+    <table>
+        <tr> 
+            <th>Type</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>Total Accepted Applicants who submitted a TOEFL score:</td>
+            <td>{{total_toefl_accept}}</td>
+        </tr>
+        <tr>
+            <td>Average TOEFL score of accepted applicants:</td>
+            <td>{{'{:.2f}'.format(average_TOEFL_accept)}}</td>
+        </tr>
+        <tr>
+            <td>Total Rejected Applicants who submitted a TOEFL score:</td>
+            <td> {{total_toefl_reject}}</td>
+        </tr>
+        <tr>
+            <td>Average TOEFL score of rejected applicants:</td>
+            <td>{{'{:.2f}'.format(average_TOEFL_reject)}}</td>
+        </tr>
+    </table>
+
+    <table>
+        <tr> 
+            <th>Type</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>Total Accepted Applicants who submmitted an Advanced GRE score:</td>
+            <td>{{total_score_accept}}</td>
+        </tr>
+        <tr>
+            <td>Average Advanced GRE score of accepted applicants:</td>
+            <td>{{'{:.2f}'.format(average_score_accept)}}</td>
+        </tr>
+        <tr>
+            <td>Total Rejected Applicants who submmitted an Advanced GRE score:</td>
+            <td>{{total_score_reject}}</td>
+        </tr>
+        <tr>
+            <td>Average Advanced GRE score of rejected applicants:</td>
+            <td>{{'{:.2f}'.format(average_score_reject)}}</td>
+        </tr>
+    </table>
+</div>
+</div>
+</body>
+
+
+</html>

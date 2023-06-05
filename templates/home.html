@@ -1,0 +1,35 @@
+<!--------------------DOCUMENT DESCRIPTION------------------ 
+-This HTML shows the home page, with everything
+-Visible by: Admin, GA?
+--------------------DOCUMENT DESCRIPTION--------------------> 
+
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>home page</title>
+  </head>
+
+  <body>
+    <h1>Home Page</h1>
+
+    <h2>Welcome {{ session['email'] }}</h2>
+
+    <ul>
+
+        {% if user_type == 'Admin'%}
+        <li><a href="/students"> View Students </a></li>
+        {% elif user_type == 'GS'%}
+        <li><a href="/facultyviewstudents"> View Students </a></li>
+        {% endif %}
+        <li><a href="/coursecatalog"> View Courses </a></li>
+        <li><a href="/asmatch"> View Advisors/Student Assignments </a></li>
+        <li><a href="/gradrequests"> View Graduation Requests </a></li>
+
+        {% if user_type == 'Admin'%}
+        <li><a href="/alumni"> View Alumni </a></li>
+        <li><a href="/newuser"> Create New User </a></li>
+        {% endif %}
+    </ul>
+    <p><a href = "/logout"> logout </a></p>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<!--------------------DOCUMENT DESCRIPTION------------------ 
+-This HTML displays an error message
+--------------------DOCUMENT DESCRIPTION--------------------> 
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Error</title>
+        <link href="/static/styles.css" rel="stylesheet" type="text/css" />
+        <style>
+
+            .error {
+                margin: 50px auto;
+                padding: 20px;
+                width: 80%;
+                max-width: 600px;
+                background-color: #f44336;
+                color: #fff;
+                text-align: center;
+                font-size: 24px;
+                font-weight: bold;
+                border-radius: 5px;
+            }
+            .error a {
+                color: #fff;
+                text-decoration: none;
+                border: 2px solid #fff;
+                border-radius: 5px;
+                padding: 10px 20px;
+                display: inline-block;
+                margin-top: 20px;
+                transition: background-color 0.2s;
+            }
+            .error a:hover {
+                background-color: #fff;
+                color: #f44336;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="error"> 
+
+            <p style="color: #ffff">{{err_message}}</p>
+
+            {%if err_message == "Your Form1 Does NOT fufil the requirements please try again :)" %}
+            <a href="/form1/{{session["uid"]}}">Go Back</a>
+            {%endif%}
+            <a href="/logout">Logout</a>
+        </div>
+    </body>
+</html>

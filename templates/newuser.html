@@ -1,0 +1,35 @@
+<!--------------------DOCUMENT DESCRIPTION------------------ 
+-This HTML shows where a new user (any type) can be created
+-Visible by: Admin
+--------------------DOCUMENT DESCRIPTION--------------------> 
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Create New Student</title>
+    </head>
+
+    <body>
+        {% include "navbar.html" %}
+    
+    <div class = "main">
+        <form id = "NewUser" method = 'POST'>
+            <p>Enter ID</p>
+            <input type = "text" name = "user_id"> <br>
+            <p>Enter Email Address</p>
+            <input type = "text" name = "email"> <br>
+            <p>Enter First Name</p>
+            <input type = "text" name = "fname"> <br>
+            <p>Enter Middle Initial</p>
+            <input type = "text" name = "minit"> <br>
+            <p>Enter Last Name</p>
+            <input type = "text" name = "lname"> <br>
+            <p>Enter User Type</p>
+            <input type = "text" name = "user_type"> <br>
+            <p>Enter Password</p>
+            <input type = "text" name = "password"> <br>
+            <input type = "submit" name = "submit">
+        </form>
+    </div>
+    </body>
+</html>

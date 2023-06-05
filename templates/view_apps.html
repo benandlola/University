@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <style>   ul {
+        list-style: none;
+      } </style>
+</head>
+<body>
+    {% include "navbar.html" %}
+    <div class="application_container">
+        <div class="application_box" style="width: calc(30% + 30px);">
+            <h2 style="text-align: center;">Application</h2>
+            <h3 style="text-align: center;">{{ user['lname'] }}, {{ user['fname'] }} {% if user['minit'] %} {{ user['minit'] }} {% endif %}</h3>
+            <p style="text-align: center;">uid: {{ app['uid'] }}</p> 
+            <p style="text-align: center;">Application Status: {{ app['status'] }}</p>
+            <p style="text-align: center;"> ____________________________________________________________</p>
+                <div class="application_main">
+                    {% if session['type'] != 'Admin' and session['type'] != 'GS' %}
+                    <ul>
+                      <li>Degree: {{ app['degree'] }}</li> 
+                      <li>Semester: {{ app['semester'] }}</li> 
+                      <li>Year: {{ app['year'] }}</li> 
+                      <li>Transcript: {{ app['transcript'] }}</li> 
+                      <li>
+                        <label for="applicant_experience">Experience </label>
+                        <input type="text" id="applicant_experience" name="applicant_experience" value="{{ app['experience'] }}" readonly>
+                     </li>  
+                      <li>
+                        <label for="applicant_aoi">Areas of Interest </label>
+                        <input type="text" id="applicant_aoi" name="applicant_aoi" value="{{ app['aoi'] }}" readonly>
+                     </li>  <br>
+                      <li>Past Degree(s)</li>
+                      {% for d in deg %}
+                      <ul>
+                        <li>Degree: {{ d['type'] }}</li>
+                        <li>GPA: {{ d['gpa'] }}</li>
+                        <li>Major: {{ d['major'] }}</li>
+                        <li>University: {{ d['college'] }}</li>
+                        <li>Year: {{ d['year'] }}</li> <br>
+                      </ul>         
+                      {% endfor %}
+                      {% if gre %}
+                        {% if gre['total'] %}
+                        <li>GRE</li>
+                        <ul>
+                            <li>Total: {{ gre['total'] }}</li>
+                            <li>Verbal: {{ gre['verbal'] }}</li>
+                            <li>Quantitative: {{ gre['quant'] }}</li>
+                            <li>Year of Exam: {{ gre['year'] }}</li>
+                        </ul>
+                        {% endif %}
+                        {% if gre['score'] %}
+                        <li>GRE Advanced</li>
+                        <ul>
+                            <li>Score: {{ gre['score'] }}</li>
+                            <li>Subject: {{ gre['subject'] }}</li>
+                        </ul> 
+                        {% endif %}
+                        {% if gre['toefl'] %}
+                        <li>TOEFL: {{ gre['toefl'] }} &nbsp; &nbsp;
+                        Year of Exam: {{ gre['date'] }}</li> 
+                        {% endif %}
+                      {% endif %}
+                      <br>
+                      <li>Recommendation letter(s)</li>
+                      {% for r in rec %}
+                         {% if r['message'] %}
+                      <ul>
+                        <li>
+                            <label for="applicant_message">Applicant message:</label>
+                            <input type="text" id="applicant_message" name="applicant_message" value="{{ r['sent'] }}" readonly>
+                          </li>
+                        <li>Writer: {{ r['writer']}}</li> 
+                        <li>Writer Email: {{ r['email']}}</li> 
+                        <li>Title: {{ r['title']}}</li> 
+                        <li>Affiliation: {{ r['affiliation']}}</li> 
+                        <li>
+                            <label for="recommendation_message">Recommendation Message:  </label>
+                            <input type="text" id="recommendation_message" name="recommendation_message" value="{{ r['message'] }}" readonly>
+                        </li> 
+                        <br>
+                      </ul> 
+                        {% endif %}
+                      {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                    {% if session['type'] == 'GS' or session['type'] == 'Admin' %}
+                    <form action="/edit_apps/{{ app['uid'] }}" id="editapp" method="POST">
+                    <ul>
+                        <li>Degree: {{ app['degree'] }}</li> 
+                        <li>Semester: {{ app['semester'] }}</li> 
+                        <li>Year: {{ app['year'] }}</li> 
+                        <li>Transcript: {{ app['transcript'] }}</li> 
+                        <li>Experience: {{ app['experience'] }} </li>  
+                        <li> Areas of Interest: {{ app['aoi'] }}</li> 
+                        <br>
+
+                    <li>Past Degree(s)</li>
+                      <ul>
+                        <li>
+                            <label for="deg1">Degree:  </label>
+                            <select name="deg1" id="deg1" required>
+                                <option value="BS/BA" selected> BS/BA</option>
+                                <option value="MS"> MS</option>
+                            </select>
+                        </li> 
+                        <li>
+                            <label for="gpa1">GPA:  </label>
+                            <input type="text" id="gpa1" name="gpa1" value="{{ deg[0]['gpa']}}" required>
+                        </li>
+                        <li>
+                            <label for="major1">Major:  </label>
+                            <input type="text" id="major1" name="major1" value="{{ deg[0]['major']}}" required>
+                        </li>
+                        <li>
+                            <label for="uni1">University:  </label>
+                            <input type="text" id="uni1" name="uni1" value="{{ deg[0]['college']}}" required>
+                        </li>
+                        <li>
+                            <label for="year1">Year:  </label>
+                            <input type="text" id="year1" name="year1" value="{{ deg[0]['year']}}" required>
+                        </li>    
+                      </ul>   
+                      <ul>
+                        {% if deg|length == 2 %}
+                        <br>
+                        <li>
+                            <label for="deg2">second Degree :  </label>
+                            <select name="deg2" id="deg2" required>
+                                <option value="BS/BA"> BS/BA</option>
+                                <option value="MS" selected> MS</option>
+                            </select>
+                        </li> 
+                        <li>
+                            <label for="gpa2">GPA:  </label>
+                            <input type="text" id="gpa2" name="gpa2" value="{{ deg[1]['gpa']}}" required>
+                        </li>
+                        <li>
+                            <label for="major2">Major:  </label>
+                            <input type="text" id="major2" name="major2" value="{{ deg[1]['major']}}" required>
+                        </li>
+                        <li>
+                            <label for="uni2">University:  </label>
+                            <input type="text" id="uni2" name="uni2" value="{{ deg[1]['college']}}" required>
+                        </li>
+                        <li>
+                            <label for="year2">Year:  </label>
+                            <input type="text" id="year2" name="year2" value="{{ deg[1]['year']}}" required>
+                        </li>  
+                        {% endif %}
+                      </ul>      
+                      <br>
+                      <ul>
+                        {% if gre %}
+                            <li>GRE</li>
+                            {% if gre['total'] %}
+                                <li>
+                                    <label for="total">Total:  </label>
+                                    <input type="text" id="total" name="total" value="{{ gre['total']}}" required>
+                                </li>  
+                                <li>
+                                    <label for="verbal">Verbal:  </label>
+                                    <input type="text" id="verbal" name="verbal" value="{{ gre['verbal']}}" required>
+                                </li>  
+                                <li>
+                                    <label for="quant">Quantitative:  </label>
+                                    <input type="text" id="quant" name="quant" value="{{ gre['quant']}}" required>
+                                </li>  
+                                <li>
+                                    <label for="yearg">Year of Exam:  </label>
+                                    <input type="text" id="yearg" name="yearg" value="{{ gre['year']}}" required>
+                                </li>  
+                
+                            {% endif %}
+                            {% if gre['score'] %}
+                                <li>GRE Advanced</li>
+                                <li>
+                                    <label for="score"> Score:  </label>
+                                    <input type="text" id="score" name="score" value="{{ gre['score']}}" required>
+                                </li>  
+                                <li>
+                                    <label for="subject">Subject:  </label>
+                                    <input type="text" id="subject" name="subject" value="{{ gre['subject']}}" required>
+                                </li>  
+                            {% endif %}
+                            {% if gre['toefl'] %}
+                            <li>
+                                <label for="toefl">TOEFL:  </label>
+                                <input type="text" id="toefl" name="toefl" value="{{ gre['toefl']}}" required>
+                            </li>  
+                            <li>
+                                <label for="yeart">Date of Exam:  </label>
+                                <input type="text" id="yeart" name="yeart" value="{{ gre['date']}}" required>
+                            </li>  
+                            {% endif %}
+                        {% endif %}
+                        <br>
+                      </ul>
+                      <li>Recommendation letter(s)</li>
+                      {% for r in rec %}
+                         {% if r['message'] %}
+                      <ul>
+                        <li>Applicant message: {{ r['sent'] }}</li>
+                        <li>Writer: {{ r['writer']}}</li> 
+                        <li>Writer Email: {{ r['email']}}</li> 
+                        <li>Title: {{ r['title']}}</li> 
+                        <li>Affiliation: {{ r['affiliation']}}</li> 
+                        <li>Recommender message: {{ r['message'] }}</li> <br>
+                      </ul> 
+                        {% endif %}
+                      {% endfor %}
+                      <br><input type="submit" name="submit" value="edit application info"> <br> <br>
+                    </form>  
+                    
+                    {% if app['status'] == 'incomplete' %}
+                    <form action="/view_apps/{{ app['uid'] }}" id="viewapp" method="POST">
+                        {% if app['transcript'] == 'M' %}
+                            The applicant has sent in their transcript!
+                            <input type="checkbox" name="trans" id="trans" value="T" checked required>
+                             
+                        {% elif app['transcript'] == 'F' %}
+                            The applicant has not sent in their transcript yet!
+                        {% endif %}
+                        
+                        {% if not rec[0]['message'] %}
+                            Applicant still needs to recieve a recommendation letter!
+                        {% endif %}
+                
+                        {% if rec[0]['message'] and (app['transcript'] == 'M' or app['transcript'] == 'T') %}  
+                            Their application is complete!
+                            <br>
+                            <input type="submit" name="submit" value="complete application">   
+                        {% endif %}
+                           
+                    </form>
+                    {% endif %}
+                {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            const editapp = document.getElementById('editapp')   
+
+    
+            editapp.addEventListener('submit', (e) => {    
+                const currentDate = new Date();
+                const currentYear = currentDate.getFullYear()
+        
+                const deg1 = document.querySelector('#deg1').value
+                let gpa1 = document.querySelector('#gpa1').value
+                const major1 = document.querySelector('#major1').value
+                let year1 = document.querySelector('#year1').value
+                const university1 = document.querySelector('#uni1').value
+
+                let deg2 = document.querySelector('#deg2')
+                let gpa2 = document.querySelector('#gpa2')
+                let major2 = document.querySelector('#major2')
+                let year2 = document.querySelector('#year2')
+                let university2 = document.querySelector('#uni2')
+                
+                let total = document.querySelector('#total')
+                let verbal = document.querySelector('#verbal')
+                let quant = document.querySelector('#quant')
+                let yearexam = document.querySelector('#yearg')
+                let score = document.querySelector('#score')
+                let subject = document.querySelector('#subject')
+                let toefl = document.querySelector('#toefl')
+                let dateexam = document.querySelector('#yeart')
+
+                let degsize = document.querySelector('#degsize')
+
+                if (degsize) {
+                    deg2 = document.querySelector('#deg2').value
+                    gpa2 = document.querySelector('#gpa2').value
+                    major2 = document.querySelector('#major2').value
+                    year2 = document.querySelector('#year2').value
+                    university2 = document.querySelector('#uni2').value
+                }
+
+                if ("{{ gre }}") {
+                    if ("{{ gre['total'] }}") {
+                        total = document.querySelector('#total').value
+                        verbal = document.querySelector('#verbal').value
+                        quant = document.querySelector('#quant').value
+                        yearexam = document.querySelector('#yearg').value 
+                    }
+                    if ("{{ gre['score'] }}") {
+                        score = document.querySelector('#score').value
+                        subject = document.querySelector('#subject').value
+                    }
+                    if ("{{ gre['toefl'] }}") {
+                        toefl = document.querySelector('#toefl').value
+                        dateexam = document.querySelector('#yeart').value
+                    }
+                }
+
+                let messages = []
+
+                if (!/^[0-4]\.\d{2}$/.test(gpa1) || gpa1.length !== 4) {
+                messages.push('GPA must be a decimal number between 0.00 and 4.00')
+                }
+                if (major1.length > 50) {
+                    messages.push('major must be under 50 characters')
+                }
+                if(!/^[a-zA-Z\s]+$/.test(major1)) {
+                    messages.push('major must only include letters')
+                }
+                if (university1.length > 50) {
+                    messages.push('university must be under 50 characters')
+                }     
+                if(!/^[a-zA-Z\s]+$/.test(university1)) {
+                    messages.push('university must only include letters')
+                }  
+                if (!/^\d+$/.test(year1) || year1.length !== 4) {
+                    messages.push('graduation year must be a valid year')
+                }
+                else if (/^\d+$/.test(year1)) {
+                    if (parseInt(year1) > currentYear) {
+                        messages.push('graduation date cannot be in the future')
+                    }
+                }  
+                
+                if (degsize) {
+                    if (major2.length > 50) {
+                    messages.push('major 2 must be under 50 characters')
+                    }
+                    if(!/^[a-zA-Z\s]+$/.test(major2)) {
+                        messages.push('major 2 must only include letters')
+                    }
+                    if (university2.length > 50) {
+                    messages.push('university 2 must be under 50 characters')
+                    }     
+                    if(!/^[a-zA-Z\s]+$/.test(university2)) {
+                        messages.push('university 2 must only include letters')
+                    } 
+                    if (!/^[0-4]\.\d{2}$/.test(gpa2) || gpa2.length !== 4) {
+                        messages.push('GPA 2 must be a decimal number between 0.00 and 4.00')
+                    }
+                    if (deg1 === deg2) {
+                        messages.push("degrees can't be the same")
+                    }
+                    if (!/^\d+$/.test(year2) || year2.length !== 4) {
+                        messages.push('graduation 2 year must be a valid year')
+                    }
+                    else if (/^\d+$/.test(year2)) {
+                        if (parseInt(year2) > currentYear) {
+                            messages.push('graduation 2 date cannot be in the future')
+                        }
+                        if ((/^\d+$/.test(year1) && year1.length === 4) && (parseInt(year1) < parseInt(year2))) {
+                            messages.push('graduation date cannot be before gradutation 2 date')
+                        }
+                    }
+                }
+                if ("{{ gre }}") {
+                    if ("{{ gre['total'] }}") {
+                        if (!/^\d+$/.test(total) || total.length !== 3) {
+                            messages.push('Total score must be between 260 and 340')
+                        }
+                        if (/^\d+$/.test(total)) {
+                            if (parseInt(total) > 340 || parseInt(total) < 260) {
+                                messages.push('Total score must be between 260 and 340')
+                            }
+                            if (/^\d+$/.test(verbal) && /^\d+$/.test(quant)) {
+                                if (parseInt(total) !== (parseInt(quant) + parseInt(verbal))) {
+                                    messages.push('Total should be Verbal + Quantitative score')
+                                }
+                            }
+                        }
+                        if (!/^\d+$/.test(verbal) || verbal.length !== 3) {
+                            messages.push('Verbal score must between 130 and 170')
+                        }
+                        else if (/^\d+$/.test(verbal)) {
+                            if (parseInt(verbal) > 170 || parseInt(verbal) < 130) {
+                                messages.push('Verbal score must be between 130 and 170')
+                            }
+                        }
+                        if (!/^\d+$/.test(quant) || quant.length !== 3) {
+                            messages.push('Quantitative score must between 130 and 170')
+                        }
+                        else if (/^\d+$/.test(quant)) {
+                            if (parseInt(quant) > 170 || parseInt(quant) < 130) {
+                                messages.push('Quantitative score must be between 130 and 170')
+                            }
+                        }
+                        if (!/^\d+$/.test(yearexam) || yearexam.length !== 4) {
+                            messages.push('Year of the exam must be a valid year')
+                        }
+                        else if (/^\d+$/.test(yearexam)) {
+                            if (parseInt(yearexam) > currentYear) {
+                                messages.push('Year of the exam cannot be in the future')
+                            }
+                        }
+                    }
+
+                    if ("{{ gre['score'] }}") {
+                        if ((!/^\d+$/.test(score) || score.length !== 3)) {
+                            messages.push('Score must be a number between 200 and 990')
+                        }
+                        else if (/^\d+$/.test(score)) {
+                            if (parseInt(score) > 990 || parseInt(score) < 200){
+                                messages.push('Score must be a number between 200 and 990')
+                            }
+                        }
+                        if (subject.length > 30) {
+                            messages.push('Subject must be under 30 characters')
+                        }
+                        if(!/^[a-zA-Z\s]+$/.test(subject)) {
+                            messages.push('Subject must only include letters')
+                        }
+                    }
+                    if ("{{ gre['toefl'] }}") {
+                        if ((!/^\d+$/.test(toefl) || toefl.length > 3 || toefl.length < 1)) {
+                            messages.push('TOEFL must be a number between 0 and 120')
+                        }
+                        else if (/^\d+$/.test(toefl)) {
+                            if (parseInt(toefl) > 120 || parseInt(toefl) < 0) {
+                                messages.push('TOEFL must be a number between 0 and 120')
+                            }
+                        }
+                        if ((!/^\d+$/.test(dateexam) || dateexam.length !== 4)) {
+                            messages.push('Exam date must be a valid year')
+                        }
+                        else if (/^\d+$/.test(dateexam)) {
+                            if (parseInt(dateexam) > currentYear) {
+                                messages.push('Exam date cannot be in the future')
+                            }
+                        }
+                    }
+                }
+
+                if (messages.length > 0 ) {
+                    e.preventDefault()
+                    messages = messages.join('\n')
+                    alert(messages)
+                }
+            })
+        </script>
+</body>
+</html>

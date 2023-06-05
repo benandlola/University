@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomepageApps</title>
+    <style>   li {
+        list-style: none;
+      } </style>
+</head>
+<body>
+    {% include "navbar.html" %}
+
+<div class = "main">
+    <div class = "main" style="text-align: center;">
+        <div class="application_box" style="width: calc(40% + 30px);">
+        <h2 style="text-align: center;">Applicant Portal</h2>
+    {% if session['type']  == 'Applicant' %}
+        <form action="/application" method="POST">
+        {% if app %}
+        
+            <li><button name="viewapp" value="view">View Application</button></li>
+            {% if app['status'] == 'incomplete' %}
+                <table class="student-table" style="margin: 0;" >
+                    <tr>
+                        <th style="background-color: #F56329;"> Name </th>
+                        <th style="background-color: #F56329;"> Email </th>
+                        <th style="background-color: #F56329;"> Send </th>
+                    </tr>
+                {% for s in sent %}
+                    {% if not s['sent'] %}
+                        <tr> 
+                            <td> {{ s['writer'] }}</td>
+                            <td> {{ s['email'] }}</td>
+                            <td> <button name="sendrec" value="{{ s['email'] }}"> Send </button></td>
+                            </tr>
+                        <br> 
+                    {% endif %}
+                {% endfor %}
+                </table> <br>
+            {% endif %}
+            {% if app['transcript'] == 'F' %}
+            <br><li><button name="sendt" value="t">Submit your transcript</button></li><br>
+            {% endif %}
+            {% if app['status'] == 'admitted' or app['status'] == 'admitaid' %}
+            <table class="student-table" style="margin: 0;">
+                    <br> 
+                    <tr> 
+                        <td> <button name="accept" value="accept">Accept your admission!</button></td>
+                        <td> <button name="reject" value="reject">Reject your admission.</button></td>
+                        </tr>
+            </table>
+
+            {% endif %}
+        
+        {% else %}
+        <ul>
+            <br><li><button name="createapp" value="create">Create Application</button></li><br>
+        </ul>
+        {% endif %}
+        </form>
+    {% endif %}
+    </div>
+    </div>
+    {% if session['type'] == 'GS' %}
+        View Apps: <br>
+        {% for us in users %}
+            <a href="\view_apps\{{ us['uid'] }}"> {{ us['lname'] }}, {{ us['fname'] }} {% if us['minit'] %} {{ us['minit'] }} {% endif %}</a> </br>
+        {% endfor %}
+        <br> Decide Apps: <br>
+        <form action="/application" method="POST">
+            {% for dec in decides %}
+                <button name="decideapp" value="{{ dec['uid'] }}"> Decide for: {{ dec['lname'] }}, {{ dec['fname'] }}  {% if dec['minit'] %} {{ dec['minit'] }} {% endif %} - {{ dec['uid'] }}</button>
+            </br>
+            {% endfor %}
+        </form>
+        Admit Students:
+        {% for ad in admit %}
+            {% if ad['status'] == 'acceptdeposit' %}
+                <a href="\accept_app\{{ ad['uid'] }}"> Admit: {{ ad['lname'] }}, {{ ad['fname'] }} {% if ad['minit'] %} {{ ad['minit'] }} {% endif %}</a>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    {% if session['type'] == 'Admin' %}
+        <br> View Apps: <br>
+        {% for us in users %}
+            <a href="\view_apps\{{ us['uid'] }}"> {{ us['lname'] }}, {{ us['fname'] }} {% if us['minit'] %} {{ us['minit'] }} {% endif %}</a> </br>
+        {% endfor %}
+    
+        <br> Admit Students:  <br>
+        {% for ad in admit %}
+            {% if ad['status'] == 'acceptdeposit' %}
+                <a href="/accept_app/{{ ad['uid'] }}"> <br>Admit: {{ ad['lname'] }}, {{ ad['fname'] }} {% if ad['minit'] %} {{ ad['minit'] }} {% endif %}</a>
+            {% endif %}
+        {% endfor %}
+
+        <br> Decide Apps:  <br>
+            <form action="/application" method="POST">
+            {% for dec in decides %}
+                <button name="decideappadmin" value="{{ dec['uid'] }}"> Decide for: {{ dec['lname'] }}, {{ dec['fname'] }} {% if dec['minit'] %} {{ dec['minit'] }} {% endif %} - {{ dec['uid'] }}</button>
+            </br>
+            {% endfor %}
+            </form>
+        <br> Review Apps:  <br>
+            <form action="/application" method="POST">
+            {% for review in reviews %}
+                <button name="reviewappadmin" value="{{ review['uid'] }}"> Review for: {{ review['lname'] }}, {{ review['fname'] }} {% if review['minit'] %} {{ review['minit'] }} {% endif %} - {{ review['uid'] }} </button>
+            </br>
+            {% endfor %}
+    {% endif %}
+
+    {% if session['type'] == 'Faculty' %}
+        {% if fac['is_CAC'] == 'T' or fac['can_review'] == 'T' or fac['can_advise'] == 'T' %}
+            <br> View Apps: <br>
+            {% for us in users %}
+                <a href="\view_apps\{{ us['uid'] }}"> {{ us['lname'] }}, {{ us['fname'] }} {% if us['minit'] %} {{ us['minit'] }} {% endif %}</a> </br>
+            {% endfor %}
+        {% endif %}
+        {% if fac['is_CAC'] == 'T' %}
+            Decide Apps:
+            <form action="/application" method="POST">
+            {% for dec in decides %}
+                <button name="decideapp" value="{{ dec['uid'] }}"> Decide for: {{ dec['lname'] }}, {{ dec['fname'] }} {% if dec['minit'] %} {{ dec['minit'] }} {% endif %} - {{ dec['uid'] }}</button>
+            </br>
+            {% endfor %}
+            </form>
+        {% endif %}
+        {% if fac['is_CAC'] == 'T' or fac['can_review'] == 'T' %}
+            Review Apps:
+            <form action="/application" method="POST">
+            {% for review in reviews %}
+                <button name="reviewapp" value="{{ review['uid'] }}"> Review for: {{ review['lname'] }}, {{ review['fname'] }} {% if review['minit'] %} {{ review['minit'] }} {% endif %} - {{ review['uid'] }} </button>
+            </br>
+            {% endfor %}
+            </form>
+        {% endif %}
+    {% endif %}
+</div>
+</body>
+</html>

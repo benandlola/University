@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GS Portal</title>
+  <link href="/static/styles.css" rel="stylesheet" type="text/css" />
+  <style>
+    body {
+      background: url("static/images/wallpaper.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  </style>
+</head>
+    <body>
+    {% include "navbar.html" %}   
+        <div class="main">
+            <div class="parent">
+                <h1 class="GS_Portal_Text">Welcome Grad Secretary {{session["first_name"]}} {{session["last_name"]}}</h1>
+            </div>
+            <div class="portal-table-container">
+                <div class="portal-table">
+                    <div class="portal-table-header">Make Queries</div>
+                        <div class="portal-table-content">
+                            <a href="/Get_Stats" class="portal-table-link">View Stats</a>
+                            <a href = "/alumni" class = "portal-table-link"> View Alumni </a>
+                            <a href = "/admittedstudents" class = "portal-table-link"> View Admitted Students </a>
+                            <a href = "//www.panerabread.com/en-us/mypanera/subscription.html" style = "color: white" class = "portal-table-link">  hi </a>
+                        </div>
+                    </div>
+        
+                <div class="portal-table">
+                    <div class="portal-table-header">Handle Advising</div>
+                        <div class="portal-table-content">
+                            <a href="/facultyviewstudents" class="portal-table-link">View Students</a>
+                            <a href="/coursecatalog" class="portal-table-link">View Courses</a>
+                            <a href="/asmatch" class="portal-table-link">View Advisors/Student Assignments</a>
+                            <a href="/gradrequests" class="portal-table-link"> View Graduation Requests</a>
+                        </div>
+                    </div>
+                <div class="portal-table">
+                <div class="portal-table-header">Handle Applications</div>
+                    <div class="portal-table-content">
+                        <a href="/viewallapps" class="portal-table-link">View All Applications</a>
+                        <a href="/viewdecideapps" class="portal-table-link">View All Decisions </a>
+                        <a href="/admitstudents" class="portal-table-link">Admit Students</a>
+                        <a href = "//www.panerabread.com/en-us/mypanera/subscription.html" style = "color: white" class = "portal-table-link">  hi </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </body>
+</html>

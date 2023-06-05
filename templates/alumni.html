@@ -1,0 +1,105 @@
+<!--------------------DOCUMENT DESCRIPTION------------------ 
+-This HTML shows a table of all the alumni with their info
+-Hold link to their directory
+-Visible by: Adimin, GA
+--------------------DOCUMENT DESCRIPTION--------------------> 
+
+<!DOCTYPE html>
+<html>
+    <head> 
+        <title> Alumni Page </title>
+      </head>
+    <body>
+        {% include "navbar.html" %}
+    
+        <div class = "student-table-main">
+            <h3 class = "All_Student_Table_Header"> All Alumni</h3>
+            </div>
+        <form method="POST" action="/alumni">
+            <div class="search_container"> 
+                <div class="search"> 
+                    <div class="search_row"> 
+                        <div class="col-md-6"> 
+                            <div class="search-1"> 
+                                <i class='bx bx-search-alt'></i> 
+                                <ul><label for degree></label>
+                                    <select name = degree id = degree>
+                                        <option value = "%"> Any Degree </option>
+                                        {% if current_deg == "PhD" %}
+                                            <option value = "PhD" selected> PhD </option>
+                                        {% else %}
+                                            <option value = "PhD"> PhD </option>
+                                        {% endif %}
+                                        {% if current_deg == "MS" %}
+                                            <option value = "MS" selected> Masters </option>
+                                        {% else %}
+                                            <option value = "MS"> Masters </option>
+                                        {% endif %}
+                                    </select>
+                                <label for sem></label>
+                                    <select name = sem id = sem>
+                                        <option value = "%" selected> Any Semester </option>
+                                        {% for sem in valid_sems %}
+                                            {% if sem == current_sem %}
+                                                <option value = "{{sem}}" selected> {{sem}} </option>
+                                            {% else %}
+                                                <option value = "{{sem}}"> {{sem}} </option>
+                                            {% endif %}
+                                        {% endfor %}  
+                                    </select>
+                                <label for year></label>
+                                    <select name = year id = year>
+                                        <option value = "%" selected> Any Year </option>
+                                        {% for year in valid_years %}
+                                            {% if year | int == current_year | int %}
+                                                <option value = {{year}} selected> {{year}} </option>
+                                            {% else %}
+                                                <option value = {{year}}> {{year}}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                            </div> 
+                        </div> 
+                        <div class="col-md-6"> 
+                            <div> 
+                                <div class="search-2"> 
+                                    <i class='bx bxs-map' ></i> 
+                                    <input type="text" name = "lname" placeholder="    Last Name">
+                                    <button> Search </button>
+                                </div> 
+                            </div> 
+                        </div> 
+                    </div> 
+                </div>
+            </div>
+            </form>
+            <br><br>
+
+        <table class="student-table">
+            <thead>
+                <tr>
+                    <th style="background-color: #F56329">Name</th>
+                    <th style="background-color: #F56329">ID</th>
+                    <th style="background-color: #F56329">Email</th>
+                    <th style="background-color: #F56329">Graduating Semester </th>
+                    <th style="background-color:#F56329">Degree</th>
+                    <th style="background-color: #F56329">Transcript</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in x %}
+                <tr>
+                    <td>{{s.fname}} {{s.minit}} {{s.lname}}</td>
+                    <td>{{s.uid}}</td>
+                    <td>{{s.email}}</td>
+                    <td>{{semesters[s.semester]}} {{s.year}}</td>
+                    <td>{{s.degree}}</td>
+                    <td><a href="/transcript_ads/{{s.uid}}">View Transcript</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+ </body>
+    
+</html>

@@ -1,0 +1,133 @@
+-- Active: 1679512962869@@regs13-taylor.cwu10kylfjr3.us-east-1.rds.amazonaws.com@3306@university
+-- 2023 1
+INSERT INTO current_sections VALUES (1,'2023-1-1-1','12345678',2023,1,'M',1);
+INSERT INTO current_sections VALUES (2,'2023-1-2-1','12345678',2023,1,'T',1);
+INSERT INTO current_sections VALUES (3,'2023-1-3-1','12345678',2023,1,'W',1);
+INSERT INTO current_sections VALUES (5,'2023-1-5-1','12345678',2023,1,'M',3);
+INSERT INTO current_sections VALUES (6,'2023-1-6-1','12345678',2023,1,'T',3);
+INSERT INTO current_sections VALUES (7,'2023-1-7-1','12345678',2023,1,'W',3);
+INSERT INTO current_sections VALUES (8,'2023-1-8-1','12345678',2023,1,'R',3);
+INSERT INTO current_sections VALUES (9,'2023-1-9-1','24681012',2023,1,'T',1);
+INSERT INTO current_sections VALUES (11,'2023-1-11-1','24681012',2023,1,'M',3);
+INSERT INTO current_sections VALUES (12,'2023-1-12-1','24681012',2023,1,'M',1);
+INSERT INTO current_sections VALUES (10,'2023-1-10-1','24681012',2023,1,'R',3);
+INSERT INTO current_sections VALUES (13,'2023-1-13-1','24681012',2023,1,'W',3);
+INSERT INTO current_sections VALUES (14,'2023-1-14-1','24681012',2023,1,'T',3);
+INSERT INTO current_sections VALUES (15,'2023-1-15-1','48121624',2023,1,'M',3);
+INSERT INTO current_sections VALUES (16,'2023-1-16-1','48121624',2023,1,'W',3);
+INSERT INTO current_sections VALUES (19,'2023-1-19-1','48121624',2023,1,'W',1);
+INSERT INTO current_sections VALUES (20,'2023-1-20-1','77777777',2023,1,'M',3);
+INSERT INTO current_sections VALUES (21,'2023-1-21-1','77777777',2023,1,'T',3);
+INSERT INTO current_sections VALUES (22,'2023-1-22-1','77777777',2023,1,'W',3);
+INSERT INTO current_sections VALUES (18,'2023-1-18-1','77777777',2023,1,'R',2);
+
+-- 2023 2
+INSERT INTO current_sections VALUES (1,'2023-2-1-1','12345678',2023,2,'M',1);
+INSERT INTO current_sections VALUES (2,'2023-2-2-1','12345678',2023,2,'T',1);
+INSERT INTO current_sections VALUES (3,'2023-2-3-1','12345678',2023,2,'W',1);
+INSERT INTO current_sections VALUES (5,'2023-2-5-1','12345678',2023,2,'M',3);
+INSERT INTO current_sections VALUES (6,'2023-2-6-1','12345678',2023,2,'T',3);
+INSERT INTO current_sections VALUES (7,'2023-2-7-1','12345678',2023,2,'W',3);
+INSERT INTO current_sections VALUES (8,'2023-2-8-1','12345678',2023,2,'R',3);
+INSERT INTO current_sections VALUES (9,'2023-2-9-1','24681012',2023,2,'T',1);
+INSERT INTO current_sections VALUES (11,'2023-2-11-1','24681012',2023,2,'M',3);
+INSERT INTO current_sections VALUES (12,'2023-2-12-1','24681012',2023,2,'M',1);
+INSERT INTO current_sections VALUES (10,'2023-2-10-1','24681012',2023,2,'R',3);
+INSERT INTO current_sections VALUES (13,'2023-2-13-1','24681012',2023,2,'W',3);
+INSERT INTO current_sections VALUES (14,'2023-2-14-1','24681012',2023,2,'T',3);
+INSERT INTO current_sections VALUES (15,'2023-2-15-1','48121624',2023,2,'M',3);
+INSERT INTO current_sections VALUES (16,'2023-2-16-1','48121624',2023,2,'W',3);
+INSERT INTO current_sections VALUES (19,'2023-2-19-1','48121624',2023,2,'W',1);
+INSERT INTO current_sections VALUES (20,'2023-2-20-1','77777777',2023,2,'M',3);
+INSERT INTO current_sections VALUES (21,'2023-2-21-1','77777777',2023,2,'T',3);
+INSERT INTO current_sections VALUES (22,'2023-2-22-1','77777777',2023,2,'W',3);
+INSERT INTO current_sections VALUES (18,'2023-2-18-1','77777777',2023,2,'R',2);
+
+-- 2023 3
+INSERT INTO current_sections VALUES (1,'2023-3-1-1','12345678',2023,3,'M',1);
+INSERT INTO current_sections VALUES (2,'2023-3-2-1','12345678',2023,3,'T',1);
+INSERT INTO current_sections VALUES (3,'2023-3-3-1','12345678',2023,3,'W',1);
+INSERT INTO current_sections VALUES (5,'2023-3-5-1','12345678',2023,3,'M',3);
+INSERT INTO current_sections VALUES (6,'2023-3-6-1','12345678',2023,3,'T',3);
+INSERT INTO current_sections VALUES (7,'2023-3-7-1','12345678',2023,3,'W',3);
+INSERT INTO current_sections VALUES (8,'2023-3-8-1','12345678',2023,3,'R',3);
+INSERT INTO current_sections VALUES (9,'2023-3-9-1','24681012',2023,3,'T',1);
+INSERT INTO current_sections VALUES (11,'2023-3-11-1','24681012',2023,3,'M',3);
+INSERT INTO current_sections VALUES (12,'2023-3-12-1','24681012',2023,3,'M',1);
+INSERT INTO current_sections VALUES (10,'2023-3-10-1','24681012',2023,3,'R',3);
+INSERT INTO current_sections VALUES (13,'2023-3-13-1','24681012',2023,3,'W',3);
+INSERT INTO current_sections VALUES (14,'2023-3-14-1','24681012',2023,3,'T',3);
+INSERT INTO current_sections VALUES (15,'2023-3-15-1','48121624',2023,3,'M',3);
+INSERT INTO current_sections VALUES (16,'2023-3-16-1','48121624',2023,3,'W',3);
+INSERT INTO current_sections VALUES (19,'2023-3-19-1','48121624',2023,3,'W',1);
+INSERT INTO current_sections VALUES (20,'2023-3-20-1','77777777',2023,3,'M',3);
+INSERT INTO current_sections VALUES (21,'2023-3-21-1','77777777',2023,3,'T',3);
+INSERT INTO current_sections VALUES (22,'2023-3-22-1','77777777',2023,3,'W',3);
+INSERT INTO current_sections VALUES (18,'2023-3-18-1','77777777',2023,3,'R',2);
+
+
+-- 2024 1
+INSERT INTO current_sections VALUES (1,'2024-1-1-1','12345678',2024,1,'M',1);
+INSERT INTO current_sections VALUES (2,'2024-1-2-1','12345678',2024,1,'T',1);
+INSERT INTO current_sections VALUES (3,'2024-1-3-1','12345678',2024,1,'W',1);
+INSERT INTO current_sections VALUES (5,'2024-1-5-1','12345678',2024,1,'M',3);
+INSERT INTO current_sections VALUES (6,'2024-1-6-1','12345678',2024,1,'T',3);
+INSERT INTO current_sections VALUES (7,'2024-1-7-1','12345678',2024,1,'W',3);
+INSERT INTO current_sections VALUES (8,'2024-1-8-1','12345678',2024,1,'R',3);
+INSERT INTO current_sections VALUES (9,'2024-1-9-1','24681012',2024,1,'T',1);
+INSERT INTO current_sections VALUES (11,'2024-1-11-1','24681012',2024,1,'M',3);
+INSERT INTO current_sections VALUES (12,'2024-1-12-1','24681012',2024,1,'M',1);
+INSERT INTO current_sections VALUES (10,'2024-1-10-1','24681012',2024,1,'R',3);
+INSERT INTO current_sections VALUES (13,'2024-1-13-1','24681012',2024,1,'W',3);
+INSERT INTO current_sections VALUES (14,'2024-1-14-1','24681012',2024,1,'T',3);
+INSERT INTO current_sections VALUES (15,'2024-1-15-1','48121624',2024,1,'M',3);
+INSERT INTO current_sections VALUES (16,'2024-1-16-1','48121624',2024,1,'W',3);
+INSERT INTO current_sections VALUES (19,'2024-1-19-1','48121624',2024,1,'W',1);
+INSERT INTO current_sections VALUES (20,'2024-1-20-1','77777777',2024,1,'M',3);
+INSERT INTO current_sections VALUES (21,'2024-1-21-1','77777777',2024,1,'T',3);
+INSERT INTO current_sections VALUES (22,'2024-1-22-1','77777777',2024,1,'W',3);
+INSERT INTO current_sections VALUES (18,'2024-1-18-1','77777777',2024,1,'R',2);
+
+-- 2024 2
+INSERT INTO current_sections VALUES (1,'2024-2-1-1','12345678',2024,2,'M',1);
+INSERT INTO current_sections VALUES (2,'2024-2-2-1','12345678',2024,2,'T',1);
+INSERT INTO current_sections VALUES (3,'2024-2-3-1','12345678',2024,2,'W',1);
+INSERT INTO current_sections VALUES (5,'2024-2-5-1','12345678',2024,2,'M',3);
+INSERT INTO current_sections VALUES (6,'2024-2-6-1','12345678',2024,2,'T',3);
+INSERT INTO current_sections VALUES (7,'2024-2-7-1','12345678',2024,2,'W',3);
+INSERT INTO current_sections VALUES (8,'2024-2-8-1','12345678',2024,2,'R',3);
+INSERT INTO current_sections VALUES (9,'2024-2-9-1','24681012',2024,2,'T',1);
+INSERT INTO current_sections VALUES (11,'2024-2-11-1','24681012',2024,2,'M',3);
+INSERT INTO current_sections VALUES (12,'2024-2-12-1','24681012',2024,2,'M',1);
+INSERT INTO current_sections VALUES (10,'2024-2-10-1','24681012',2024,2,'R',3);
+INSERT INTO current_sections VALUES (13,'2024-2-13-1','24681012',2024,2,'W',3);
+INSERT INTO current_sections VALUES (14,'2024-2-14-1','24681012',2024,2,'T',3);
+INSERT INTO current_sections VALUES (15,'2024-2-15-1','48121624',2024,2,'M',3);
+INSERT INTO current_sections VALUES (16,'2024-2-16-1','48121624',2024,2,'W',3);
+INSERT INTO current_sections VALUES (19,'2024-2-19-1','48121624',2024,2,'W',1);
+INSERT INTO current_sections VALUES (20,'2024-2-20-1','77777777',2024,2,'M',3);
+INSERT INTO current_sections VALUES (21,'2024-2-21-1','77777777',2024,2,'T',3);
+INSERT INTO current_sections VALUES (22,'2024-2-22-1','77777777',2024,2,'W',3);
+INSERT INTO current_sections VALUES (18,'2024-2-18-1','77777777',2024,2,'R',2);
+
+-- 2024 3
+INSERT INTO current_sections VALUES (1,'2024-3-1-1','12345678',2024,3,'M',1);
+INSERT INTO current_sections VALUES (2,'2024-3-2-1','12345678',2024,3,'T',1);
+INSERT INTO current_sections VALUES (3,'2024-3-3-1','12345678',2024,3,'W',1);
+INSERT INTO current_sections VALUES (5,'2024-3-5-1','12345678',2024,3,'M',3);
+INSERT INTO current_sections VALUES (6,'2024-3-6-1','12345678',2024,3,'T',3);
+INSERT INTO current_sections VALUES (7,'2024-3-7-1','12345678',2024,3,'W',3);
+INSERT INTO current_sections VALUES (8,'2024-3-8-1','12345678',2024,3,'R',3);
+INSERT INTO current_sections VALUES (9,'2024-3-9-1','24681012',2024,3,'T',1);
+INSERT INTO current_sections VALUES (11,'2024-3-11-1','24681012',2024,3,'M',3);
+INSERT INTO current_sections VALUES (12,'2024-3-12-1','24681012',2024,3,'M',1);
+INSERT INTO current_sections VALUES (10,'2024-3-10-1','24681012',2024,3,'R',3);
+INSERT INTO current_sections VALUES (13,'2024-3-13-1','24681012',2024,3,'W',3);
+INSERT INTO current_sections VALUES (14,'2024-3-14-1','24681012',2024,3,'T',3);
+INSERT INTO current_sections VALUES (15,'2024-3-15-1','48121624',2024,3,'M',3);
+INSERT INTO current_sections VALUES (16,'2024-3-16-1','48121624',2024,3,'W',3);
+INSERT INTO current_sections VALUES (19,'2024-3-19-1','48121624',2024,3,'W',1);
+INSERT INTO current_sections VALUES (20,'2024-3-20-1','77777777',2024,3,'M',3);
+INSERT INTO current_sections VALUES (21,'2024-3-21-1','77777777',2024,3,'T',3);
+INSERT INTO current_sections VALUES (22,'2024-3-22-1','77777777',2024,3,'W',3);
+INSERT INTO current_sections VALUES (18,'2024-3-18-1','77777777',2024,3,'R',2);

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> transcript </title>
+    </head>
+    <body>
+        {% include "navbar.html" %}
+
+        <div class = "main">
+
+        The transcript of {{ session['student_name']['first_name'] }} {{ session['student_name']['middle_initial'] }} {{ session['student_name']['last_name'] }} <br>
+        Univsersity ID: {{ student_ID }} <br>
+        GPA: {{ session['GPA'] }} <br>
+        <table border="5" cellspacing="0" align="center">
+            <tr>
+                <td align="center" height="50" width="100"><br>
+                    <b>Class Number</b></br>
+                </td>
+                <td align="center" height="50" width="100"><br>
+                    <b>Department</b></br>
+                </td>
+                <td align="center" height="50" width="100"><br>
+                    <b>Title</b></br>
+                </td>
+                <td align="center" height="50" width="100"><br>
+                    <b>Professor</b></br>
+                </td>
+                <td align="center" height="50" width="100"><br>
+                    <b>Class Page Link</b></br>
+                </td>
+                <td align="center" height="50" width="100"><br>
+                    <b>Semester Taken</b></br>
+                </td>
+                <td align="center" height="50" width="100"><br>
+                    <b>Grade</b></br>
+                </td>
+            </tr>
+            {% for class in session['classes_taken'] %}
+            <tr>
+                <td align="center" height="50" width="100"><br>
+                    <b>{{ class['class_num'] }}</b></br>
+                </td>
+                <td align="center" height="50" width="100"><br>
+                    <b>{{ class['department'] }}</b></br>
+                </td>
+                <td align="center" height="50" width="100"><br>
+                    <b>{{ class['class_title'] }}</b></br>
+                </td>
+                <td align="center" height="50" width="100"><br>
+                    <b>{{ class['fname'] }} {{ class['lname'] }}</b></br>
+                </td>
+                <td align="center" height="50" width="100"><br>
+                    <a href={{ url_for('Class_Page', class_ID = class['section_id']) }}>Class Page</a></br>
+                </td>
+                <td align="center" height="50" width="100"><br>
+                    <b>{{ session['semester_names'][class['semester']] }} {{ class['year'] }}</b></br>
+                </td>
+                <td align="center" height="50" width="100"><br>
+                    <b>{{ class['grade'] }}</b></br>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    </body>
+</html>

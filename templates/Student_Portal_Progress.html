@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> student portal </title>
+    <style>
+        .error {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffffff;
+            color: red;
+            width: 50%;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: auto;
+        }
+    </style>
+    
+  </head>
+  <body>
+    {% include "navbar.html" %}
+
+    <div class = "main">
+        <div class = "parent">
+            <h1 class="GS_Portal_Text">Welcome {{ session['first_name'] }} {{ session['last_name'] }} </h1><br><br>
+        </div>
+
+        <div class="error"> You are currently under an advising hold to register for classes. <br>
+        Please add classes to your proposed schedule below and then submit the form to your advisor for review <br>
+        This schedule is for {% if session["reg_sem"] == 1 %} Spring {% elif session["reg_sem"] == 2 %} Summer {% else %}
+        Fall {% endif %} {{session["reg_year"]}}</div>
+
+        <!-- <h3 class = "All_Student_Table_Header"> Choose a semester:</h3>
+    <form action = "/Student_Portal_Progress" method = "POST">
+        <label for set_sem_year></label>
+        <select name = set_sem_year id = set_sem_year>
+                {% for sem in valid_sems %}
+                    {% if sem["year"] == session["reg_year"] and sem["semester"] == session["reg_sem"] %}
+                        <option value = {{sem}} selected> {{semesters[sem["semester"]|int - 1]}} {{sem["year"]}} </option>
+                    {% else %}
+                        <option value = {{sem}}> {{semesters[sem["semester"]|int - 1]}} {{sem["year"]}} </option>
+                    {% endif %}
+                {% endfor %}
+        </select>
+         
+        <input type = "submit" name = "set_sem_year" value = "select year and semester"><br>
+    </form> -->
+
+
+    <div class = "student-table-main">
+        <h3 class = "All_Student_Table_Header">View Schedule</h3>
+    </div>
+    <!-- !!!!!!!!!!!!!!!!!!!!!!VIEW SCHEDULE!!!!!!!!!!!!!!!!!!!!!!-->
+    <div  class="viewschedule">
+    <table cellspacing="0" align="center">
+        <tr>
+            <th align="center" height="50" width="100" style="background-color: #3D3D3D;">
+                <b>{% if session["reg_sem"] == 1 %}
+                    Spring
+                {% elif session["reg_sem"] == 2 %}
+                    Summer
+                {% else %}
+                    Fall
+                {% endif %}
+                {{session["reg_year"] }}</b></br>
+            </th>
+            <th align="center" height="50" width="100">
+                <b>Monday</b>
+            </th>
+            <th align="center" height="50" width="100"><br>
+                <b>Tuesday</b>
+            </th>
+            <th align="center" height="50" width="100"><br>
+                <b>Wednesday</b>
+            </th>
+            <th align="center" height="50" width="100"><br>
+                <b>Thursday</b>
+            </th>
+            <th align="center" height="50" width="100"><br>
+                <b>Friday</b>
+            </th>
+        </tr>
+        {% for period in range(3) %}
+        <tr>
+            <td align="center" height="50" widht="100" style="background-color: #5C5C5C;">
+                <b style="color: #fff;">{{ session['different_periods'][period] }}</b>
+            </td>
+            {% for day in range(5) %}
+            <td align="center" height="50" widht="100">
+                <b>{{ session['schedule'][period][day][0] }}</b>
+                {% if session['schedule'][period][day][0] != 'free period' %}
+                    <br> CID: {{session['schedule'][period][day][2]}} <br>
+                    <a href={{ url_for('Class_Page', class_ID = session['schedule'][period][day][1]) }}>class page</a>
+                        <form method="POST" action="/Student_Portal_Progress">
+                            <input type="submit" name="{{ session['schedule'][period][day][0] }}" value='drop'>
+                            <input type = "hidden" name = "period" value = {{period}}>
+                            <input type = "hidden" name = "day" value = {{day}}>
+                            <input type = "hidden" name = "sectid" value = "{{session['schedule'][period][day][1]}}">
+                            <input type = "hidden" name = "THIS IS A DROP" value = "THIS IS A DROP">
+                        </form>
+                {% endif %}
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!VIEW SCHEDULE!!!!!!!!!!!!!!!!!!!!!!-->
+    {% if can_submit %}
+    <br><div style = "text-align: center">
+    <form action = "/Student_Portal_Progress" method = "POST">
+        <input type = submit name = submit value = "submit form to advisor" class = "nav_btn">
+        <input type = hidden name = "submitting form" value = "submitting form">
+    </form></div><br><br>
+    {% endif %}
+
+
+    <h3 class = "All_Student_Table_Header">Class Lookup: </h3>
+    <error>{{ session['student_portal_error'] }}</error> <br><br>
+    <form action="/Student_Portal_Progress" method="POST">
+        Department:
+        <input type="text" name="department" value="">
+        Class title:
+        <input type="text" name="title" value="">
+        Class number
+        <input type="text" name="number" value="">
+        <input type="submit" name="class_lookup" value="Submit">
+    </form>
+
+        <!-- !!!!!!!!!!!!!!!!!!!!!!VIEW CLASSES!!!!!!!!!!!!!!!!!!!!!!-->
+    <div  class="viewschedule">
+    <table cellspacing="0" align="center">
+        <tr>
+            <th align="center" height="50" width="100">
+                <b>CID</b>
+            </th>
+            <th align="center" height="50" width="100">
+                <b>Section_ID</b>
+            </th>
+            <th align="center" height="50" width="100">
+                <b>Department</b>
+            </th>
+            <th align="center" height="50" width="100">
+                <b>Course Number</b>
+            </th>
+            <th align="center" height="50" width="100">
+                <b>Title</b>
+            </th>
+            <th align="center" height="50" width="100">
+                <b>Professor</b>
+            </th>
+            <th align="center" height="50" width="100">
+                <b>Time</b>
+            </th>
+            <th align="center" height="50" width="100">
+                <b>Number of Credit Hours</b>
+            </th>
+            <th align="center" height="50" width="100">
+                <b>Eligable</b>
+            </th>
+            <th align="center" height="50" width="100">
+                <b>ADD</b>
+            </th>
+        </tr>
+        {% for course in session['lookup_results_classes'] %}
+        <tr>
+            <td align="center" height="50" width="100"><br>
+                <b>{{ course['cid'] }}</b></br>
+            </td>
+            <td align="center" height="50" width="100"><br>
+                <b>{{ course['section_id'] }}</b></br>
+            </td>
+            <td align="center" height="50" width="100"><br>
+                <b>{{ course['department'] }}</b></br>
+            </td>
+            <td align="center" height="50" width="100"><br>
+                <b>{{ course['class_num'] }}</b></br>
+            </td>
+            <td align="center" height="50" width="100"><br>
+                <b>{{ course['class_title'] }}</b></br>
+            </td>
+            <td align="center" height="50" width="100"><br>
+                <b>{{ course['fname'] }} {{ course['lname'] }}</b></br>
+            </td>
+            <td align="center" height="50" width="100"><br>
+                <b>{{ session['different_periods_2'][course['timeslot'] |int ] }} {{ course['day'] }}</b></br>
+            </td>
+            <td align="center" height="50" width="100"><br>
+                <b>{{ course['credit_hours'] }}</b></br>
+            </td>
+            <td align="center" height="50" width="100"><br>
+                {% if course['eligable'] == "YES" %}
+                    <b>{{ course['eligable'] }}</b></br>
+                {% else %}
+                    <error>{{course["eligable"]}}</error><br>
+                {% endif %}
+            </td>
+            <td align="center" height="50" width="100"><br>
+                {% if course['eligable'] == "YES" %}
+                <form method="POST" action="/Student_Portal_Progress">
+                    <input type="submit" name="{{ course['title'] }}" value="add">
+                    <input type = hidden name = sectid value = "{{course['section_id']}}">
+                </form>
+                <br>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+  </div>
+  </body>
+</html>

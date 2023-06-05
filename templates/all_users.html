@@ -1,0 +1,77 @@
+<html>
+    <head>
+        <title> User Search </title>
+    </head>
+
+    <body>
+        {% include "navbar.html" %}
+    
+        <div class = "student-table-main">
+            <h3 class = "All_Student_Table_Header"> All Users</h3>
+            </div>
+        <form method="POST" action="/all_users">
+            <div class="search_container"> 
+                <div class="search"> 
+                    <div class="search_row"> 
+                        <div class="col-md-6"> 
+                            <div class="search-1"> 
+                                <i class='bx bx-search-alt'></i> 
+                                <ul><label for type></label>
+                                    <select name = type id = type>
+                                        <option value = "%" selected> Any Type </option>
+                                        {% for type in valid_types %}
+                                            {% if current_type == type %}
+                                                <option value = {{type}} selected> {{type}}</option>
+                                            {% else %}
+                                                <option value = {{type}}> {{type}}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                            </div> 
+                        </div> 
+                        <div class="col-md-6"> 
+                            <div class="search-1"> 
+                                <i class='bx bx-search-alt'></i> 
+                                <input type="text" name = "uid" placeholder="User ID">
+                            </div> 
+                        </div> 
+                        <div class="col-md-6"> 
+                            <div> 
+                                <div class="search-2"> 
+                                    <i class='bx bxs-map' ></i> 
+                                    <input type="text" name = "lname" placeholder="    Last Name">
+                                    <button> Search </button>
+                                </div> 
+                            </div> 
+                        </div> 
+                    </div> 
+                </div>
+            </div>
+            </form>
+            <br><br>
+
+        <table class="student-table">
+            <thead>
+                <tr>
+                    <th style="background-color: #F56329">Name</th>
+                    <th style="background-color: #F56329">ID</th>
+                    <th style="background-color: #F56329">User Type</th>
+                    <th style="background-color:#F56329">Add/Edit Info</th>
+                    <th style="background-color: #F56329">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in users %}
+                <tr>
+                    <td>{{u.fname}} {{u.minit}} {{u.lname}}</td>
+                    <td>{{u.uid}}</td>
+                    <td>{{u.user_type}}</td>
+                    <td><a href="/user_page/{{u.uid}}">Edit Info</a></td>
+                    <td><a href="remove_user/{{u.uid}}"> Delete User</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+ </body>
+</html>

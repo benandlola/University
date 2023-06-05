@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> lookup </title>
+    </head>
+    <body>
+
+        {% if session["user_type"] == "GS" %}
+            {% set redirect = "/GS_Portal" %}
+        {% elif session["user_type"] == "Admin" %}
+            {% set redirect = "/Sysadmin_Portal" %}
+        {% endif %}
+        <form action= {{redirect}} method="POST">
+            First Name:
+            <input type="text" name="first_name" value=""><br>
+            Last Name:
+            <input type="text" name="last_name" value=""><br>
+            Univsersity ID:
+            <input type="text" name="uid" value=""><br>
+            {% if session["user_type"] == "GS" %}
+                Program:
+            {% elif session["user_type"] == "Admin" %}
+                Role:
+                <label for = user_type></label>
+                <select name = user_type id = user_type>
+                    <option value = %s selected></option>
+                    <option value = "Admin"> Sysadmin </option>
+                    <option value = "GS"> Grad Secretary </option>
+                    <option value = "Student"> Student </option>
+                    <option value = "Faculty"> Faculty</option>
+                    <option value = "Registrar"> Registrar</option>
+                    <option value = "Applicant"> Applicant</option>
+                    <option value = "Alumni"> Alumni </option>
+                </select>
+                <br>
+                Program: 
+            {% endif %}
+                <label for = program></label>
+                <select name = program id = program>
+                    <option value = "%" selected></option>
+                    <option value = "PHD"> PHD </option>
+                    <option value = "Masters"> Masters </option>
+                </select>
+            <br>
+            <input type="submit" name="Form_Type" value="search">
+        </form>
+    </body>
+</html>

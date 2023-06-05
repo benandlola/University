@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Student Thesis</title>
+	<style>
+        body {
+			font-family: Arial, sans-serif;
+		}
+
+	</style>
+</head>
+<body>
+	{% include "navbar.html" %}
+	<div class="thesisview">
+		<h1>{{ studentinfo.fname }} {{ studentinfo.minit }} {{ studentinfo.lname }} Thesis</h1>
+		<h2>ID: {{ studentinfo.uid }}</h2>
+		<h2>Thesis Statement:</h2>
+		<div class="text-box">
+			<p>{{ x.thesis }}</p>
+		</div>
+		{% if x.approved == 'T' %}
+			<p class="status">Thesis Approved</p>
+		{% else %}
+			{% if session["user_type"] == 'Faculty' %}
+				<p class="status-pending"><a href="/approvethesis/{{ studentinfo.uid }}">Thesis Approval Pending. Click here to approve.</a></p>
+			{% else %}
+				<p class="status-pending">Thesis Approval Pending</p>
+			{% endif %}
+		{% endif %}
+		<p><a href="/facultyviewstudents" class = "nav_btn"> Return to All Students</a></p>
+	</div>
+</body>
+</html>

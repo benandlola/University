@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Edit Info </title>
+        <style>
+        ul {
+            list-style-type: none;
+            }
+        </style>
+    </head>
+
+<body>
+    {% include "navbar.html" %}    
+<div class = "main" style="text-align: center;">
+    <div class="application_box" style="width: calc(30% + 30px);">
+    <h1 style="text-align: center;"> Hello {{session["first_name"]}} {{session["last_name"]}}</h1>
+    <error> {{session['EditInfoError']}} </error>
+   <form action = "/Edit_Info" id= "editinfo" method = "POST">
+    <ul>
+        <li>UID: {{session["uid"]}}</li> <br>
+        <li>First Name: <input type = "text" name = "fname" id="fname" value = "{{session['first_name']}}" required></li> <br>
+        <li>Middle Initial: <input type = "text" name = "minit" id="minit" value = "{{session['middle_initial']}}" required></li> <br>
+        <li>Last Name: <input type = "text" name = "lname" id="lname" value = "{{session['last_name']}}" required></li> <br>
+        <li>Address: <input type = "text" name = "address" id="address" value = "{{session['address']}}" required></li> <br>
+        <li>Email: <input type = "text" name = "email" id="email" value = "{{session['email']}}" required></li> <br>
+        <input type = submit name = submit value = "submit changes"><br>
+        <br>
+        <br>
+        <li><a href = "/Change_Password" style="color: seagreen;"> change password </a> </li>
+    </ul>
+    </form>
+    </div>
+    <script type="text/javascript">
+        const editinfo = document.getElementById('editinfo')   
+   
+        editinfo.addEventListener('submit', (e) => {     
+            const fname = document.querySelector('#fname').value
+            const minit = document.querySelector('#minit').value
+            const lname = document.querySelector('#lname').value
+            const address = document.querySelector('#address').value
+            const email = document.querySelector('#email').value
+
+            let messages = []
+
+            if (email !== '') {
+                if (!/^.+@.+$/.test(email) || email.length > 50) {
+                    messages.push('Invalid email')
+                }
+            }
+            if (fname !== '') {
+                if (fname.length > 50) {
+                    messages.push('Name cannot be longer than 50 characters')
+                }
+                if (!/^[a-zA-Z]+$/.test(fname)) {
+                    messages.push('First name must be letters only')
+                }
+                
+            }
+            if (minit !== '') {
+                if (minit.length !== 1 || !/^[a-zA-Z]+$/.test(minit)) {
+                    messages.push('Middle initial can only be one letter')
+                }
+                
+            }
+            if (lname !== '') {
+                if (lname.length > 50) {
+                    messages.push('Last name cannot be longer than 50 characters')
+                }
+                if (!/^[a-zA-Z-\s]+$/.test(lname)) {
+                    messages.push('Last name must be letters only')
+                }
+            }
+            if (address !== '') {
+                if (address.length > 100) {
+                    messages.push('Address cannot be longer than 100 characters')
+                }
+            }
+            if (messages.length > 0 ) {
+                e.preventDefault()
+                messages = messages.join('\n')
+                alert(messages)
+            }
+        })
+    </script>
+</div>
+</body>
+</html>

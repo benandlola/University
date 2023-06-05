@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Course Catalog</title>
+        <style>
+        </style>
+    </head>
+    <body>
+        {% include "navbar.html" %}
+    
+        <div class="viewform1" style="margin: 20px auto; padding: 10px;">
+        <h1>Course Catalog</h1>
+        <div style="text-align: right;">
+            <button class="nav_btn" onclick="sortTable(0)" style="margin: 20px">Sort by Course ID</button>
+            <button class="nav_btn" onclick="sortTable(1)" style="margin: 20px">Sort by Department</button>
+            <button class="nav_btn" onclick="sortTable(2)" style="margin: 20px">Sort by Course Number</button>
+            <button class="nav_btn" onclick="sortTable(3)" style="margin: 20px">Sort by Title</button>
+        </div>
+        <table id="course-table">
+            <thead>
+                <tr>
+                    <th>Course ID</th>
+                    <th>Department</th>
+                    <th>Course Number</th>
+                    <th>Title</th>
+                    <th>Credit</th>
+                    <th>Prerequisite 1</th>
+                    <th>Prerequisite 2</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in data %}
+                <tr>
+                    <td>{{ i.cid }}</td>
+                    <td>{{ i.department }}</td>
+                    <td>{{ i.class_num }}</td>
+                    <td>{{ i.class_title }}</td>
+                    <td>{{ i.credit_hours }}</td>
+                    <td>
+                        {% if i.prerequisite_1 != 'None' %}
+                            {{ i.prerequisite_1 }}<br>
+                        {% else %}
+                            None
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if i.prerequisite_2 != 'None' %}
+                            {{ i.prerequisite_2 }}<br>
+                        {% else %}
+                            None
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% if user_type == 'Admin' or user_type == 'GS'%}
+        <p><a class="nav_btn" href = "/home"> return to homepage </a> </p>
+        {% elif user_type == 'Graduate Student'%}
+        <p><a class="nav_btn" href = "/studentdirectory/{{id}}"> return to directory </p>
+        {% endif %}
+    </div>
+</div>
+</body>
+
+<script>
+
+    function sortTable(column) {
+        var table, rows, switching, i, x, y, shouldSwitch;
+        table = document.getElementById("course-table");
+        switching = true;
+        while (switching) {
+          switching = false;
+          rows = table.getElementsByTagName("TR");
+          for (i = 1; i < (rows.length - 1); i++) {
+            shouldSwitch = false;
+            x = rows[i].getElementsByTagName("TD")[column];
+            y = rows[i + 1].getElementsByTagName("TD")[column];
+            if (column == 0) { // sort by CID
+              if (parseInt(x.innerHTML) > parseInt(y.innerHTML)) {
+                shouldSwitch = true;
+                break;
+              }
+            } else { // sort by other columns
+              if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                shouldSwitch = true;
+                break;
+              }
+            }
+          }
+          if (shouldSwitch) {
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+          }
+        }
+      }
+      
+    </script>
+</html>

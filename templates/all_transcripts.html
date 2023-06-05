@@ -1,0 +1,50 @@
+<!--------------------DOCUMENT DESCRIPTION------------------ 
+-This HTML shows the table of all the students assigned to said advisor
+-Holds the students info, transcript, and form 1
+-Visible by: Admin, GS, Advisor
+--------------------DOCUMENT DESCRIPTION--------------------> 
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Students</title>
+        <link href="/static/student_table.css" rel="stylesheet" type="text/css" />
+        <style>
+            body {
+              background: url("static/images/wallpaper.jpg");
+              background-repeat: no-repeat;
+              background-size: cover;
+            }
+          </style>
+    </head>
+
+    <body>
+
+        {% include "navbar.html" %}
+    
+        <div class = "student-table-main">
+
+            <h3 class = "All_Student_Table_Header">All Students</h3>
+        </div>
+            <table class="student-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>View Transcripts</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for s in students %}
+                    <tr>
+                        <td>{{s.uid}}</td>
+                        <td>{{s.fname}} {{s.minit}} {{s.lname}}</td>
+                        <td><a href="/transcript_ads/{{s.uid}}">View Transcript</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <br>
+        </div>
+    </body>
+</html>

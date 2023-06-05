@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head> 
+    <title> signup </title>
+  </head>
+  <body>
+    {% include "navbar.html" %}
+
+    <div class = "main">
+    Create a new student account <br>
+    Please fill in all the following information <br><br>
+    <form action="/Account_Creation" method="POST">
+        First Name: <input type="text" name="first_name" required maxlength="32"><br><br>
+        Middle_Initial: <input type="text" name="middle_initial" required maxlength="4"><br><br>
+        Last Name: <input type="text" name="last_name" required maxlength="32"><br><br>
+        Current address: <input type="text" name="address" required maxlength="64"><br><br>
+        Birthday: <input type="date" name="birthday" required><br>
+        Password: <input type="text" name="password" required minlength="8"><br><br>
+        Univsersity ID (8 digit integer): <input type="text" name="uid" required minlength="8" maxlength="8"><br><br>
+        Role:
+        <select name = 'user_type'>
+          <option value='student_p'>student_p</option>
+          <option value='student_m'>student_m</option>
+        </select> <br><br>
+      <error>{{ session['error_account_creation'] }}</error> <br><br>
+        <input type="submit" value="submit"> <br><br>
+    </form>
+  </div>
+  </body>
+</html>

@@ -1,0 +1,996 @@
+/* **************************************** OLD NAV BAR CSS ****************************************
+.navbar{
+  background-color: #BB8E51;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+success {
+  color: green;
+}
+
+.navbarlinks {
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+
+}
+
+.navbarlinks a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: white; 
+  font-weight: bold;
+  font-size: 18px;
+}
+
+img {
+  height: 125px;
+  width: 125px;
+}
+
+h3 {
+  padding-left:30px;
+  font-size: 1.7rem;
+  font-family: "Lucida Console", "Courier New", monospace;
+}
+
+html {
+  background-color: rgb(240, 234, 214);
+  font-family: "Lucida Console", "Courier New", monospace;
+}
+
+input {
+  background-color: rgb(196, 190, 169);
+  font-family: "Lucida Console", "Courier New", monospace;
+}
+
+
+select {
+  background-color: rgb(196, 190, 169);
+  font-family: "Lucida Console", "Courier New", monospace;
+}
+
+table {
+  background-color: rgb(196, 190, 169);
+  color: black;
+}
+
+.main {
+  padding-top: 10px;
+  color: grey;
+  background-color: #798A42;
+} */
+/***************************************** NEW NAV BAR *****************************************/
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.header {
+  background: #BB8E51;
+  width: 100%;
+  /* background-image: url("static/images/logsback.jpeg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%; */
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+nav {
+  flex: 1;
+  text-align: right;
+}
+
+nav ul {
+  display: inline-block;
+  list-style-type: none;
+}
+
+nav ul li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+p {
+  color: #555;
+}
+
+.nav_btn {
+  display: inline-block;
+  background: #F56329;
+  color: #fff;
+  padding: 8px 30px;
+  border-radius: 30px;
+  transition: background 0.5s;
+  text-decoration: none;
+}
+
+.nav_btn:hover {
+  background: #9C5644;
+  color: #fff;
+  text-decoration: none;
+}
+
+.nav_btn:focus {
+  box-shadow: none !important;
+  outline: 0px !important;
+}
+
+.line {
+  border-bottom: 1px solid #000;
+  margin-top: 0px;
+}
+/***************************************** NEW NAV BAR END *****************************************/
+
+
+/***************************************** LOG IN PAGE CSS /*****************************************/
+  /* body, */
+/* 
+  body {
+    background-image: url('static/images/wallpaper.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+  } */
+  
+  html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    /* background: url("static/images/wallpaper.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%; */
+    background: #798A42 !important;
+    /* background-image: url("static/images/wallpaper.jpg");
+    background-size: cover;
+    background-position: center; */
+  }
+  .user_card {
+    height: 400px;
+    width: 350px;
+    margin-top: 100px;
+    margin-bottom: auto;
+    background: #fff;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+
+  }
+  .brand_logo_container {
+    position: absolute;
+    height: 170px;
+    width: 170px;
+    top: -75px;
+    border-radius: 50%;
+    background: #BB8E51;
+    padding: 10px;
+    text-align: center;
+  }
+  .brand_logo {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    border: 2px solid white;
+  }
+  .form_container {
+    margin-top: 100px;
+  }
+  .login_btn {
+    display: inline-block;
+    background: #F56329;
+    color: #fff;
+    padding: 8px 30px;
+    transition: background 0.5s; 
+  }
+  .login_btn:hover{
+    background: #BB8E51; 
+  }
+
+  .login_btn:focus {
+    box-shadow: none !important;
+    outline: 0px !important;
+  }
+  .login_container {
+    padding: 0 2rem;
+  }
+  .input-group-text {
+    background: #F56329 !important;
+    color: white !important;
+    border: 0 !important;
+    border-radius: 0.25rem 0 0 0.25rem !important;
+  }
+  .input_user,
+  .input_pass:focus {
+    box-shadow: none !important;
+    outline: 0px !important;
+  }
+  .custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+    background-color: #F56329 !important;
+  }
+/***************************************** LOG IN PAGE END /*****************************************/
+
+
+/***************************************** GS PORTAL PAGE START /*****************************************/
+
+.portal-table-container {
+  display: flex;
+  justify-content: center; /* center tables horizontally */
+  margin-top: 20px; /* add margin to top */
+}
+
+.portal-table {
+  flex-basis: 33%;
+  margin-right: 20px; /* increase margin between tables */
+  background-color: #fff; /* set background color for table */
+  border-radius: 10px; /* add rounded corners to table */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* add shadow effect to table */
+  transition: transform 0.2s ease-in-out; /* add transition effect on hover */
+  margin-top: 20px;
+  margin-bottom: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.portal-table:last-child {
+  margin-right: 0;
+}
+
+.portal-table:hover {
+  transform: translateY(-10px); /* add hover effect to table */
+}
+
+.portal-table-header {
+  background-color: #798A42; /* set background color for table header */
+  color: #fff; /* set text color for table header */
+  padding: 20px; /* add padding to table header */
+  border-top-left-radius: 10px; /* add rounded corners to table header */
+  border-top-right-radius: 10px;
+  text-align: center; /* center the text */
+}
+
+.portal-table-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.portal-table-link {
+  display: block;
+  padding: 20px; /* add padding to links */
+  color: #F56329; /* set text color for links */
+  text-decoration: none; /* remove underline from links */
+  transition: background-color 0.2s ease-in-out; /* add transition effect on hover */
+  border: 1px solid #BB8E51;
+  border-radius: 5px; /* add rounded corners to the border */
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1); /* add shadow effect to the border */
+  text-align: center; /* center the text */
+
+}
+
+.portal-table-link:hover {
+  background-color: #FCD4C5; /* add hover effect to links */
+}
+
+.GS_Portal_Text {
+  color: white;
+  text-align: center; /* center the text within the element */
+  margin-top: 50px auto 0; /* adjust this value as needed */
+  background-color: #BB8E51; /* change this value to set the background color */
+  padding: 20px; /* add padding to create some space between the text and the background */
+  border-radius: 10px; /* add rounded corners to the background */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3); /* add a shadow effect */
+  display: inline-block; /* make the element an inline block to make the borders as long as the text */
+  
+}
+
+.parent {
+  display: flex;
+  justify-content: center;
+}
+/***************************************** GS PORTAL PAGE END /*****************************************/
+
+/***************************************** VIEW STUDENT PAGE START /*****************************************/
+
+.student-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 200px;
+  border-radius: 10px; /* add rounded corners to the background */
+}
+
+.student-table th, .student-table td {
+  padding: 8px;
+  text-align: center;
+}
+
+.student-table th {
+  background-color: #798A42;
+  color: white;
+}
+
+.student-table td{
+  border: 1px solid #ddd;
+
+  padding: 8px;
+}
+.student-table tr:nth-child(even) {
+  background-color: #798A42;
+  color: #fff; /* set text color for links */
+}
+
+.student-table tr:nth-child(odd) {
+  background-color: #C5D19F;
+  color: #000; /* set text color for links */
+}
+.student-table a {
+  display: block;
+  background-color: #BB8E51; /* add hover effect to links */
+  padding: 20px; /* add padding to links */
+  color: #fff; /* set text color for links */
+  text-decoration: none; /* remove underline from links */
+  transition: background-color 0.2s ease-in-out; /* add transition effect on hover */
+  border: 1px solid #BB8E51;
+  border-radius: 5px; /* add rounded corners to the border */
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1); /* add shadow effect to the border */
+  text-align: center; /* center the text */
+
+}
+
+.student-table a:hover {
+  background-color: #FCD4C5; /* add hover effect to links */
+}
+
+.student_list_main{
+  margin-bottom: 40px; 
+}
+
+.facultyviewstudentstext h2 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.facultyviewstudentstext h3 {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.facultyviewstudentstext h4 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.facultyviewstudentstext h4:first-of-type {
+  margin-top: 20px;
+}
+
+.All_Student_Table_Text {
+  color: white;
+  text-align: center; /* center the text within the element */
+  margin-top: 50px auto 0; /* adjust this value as needed */
+  background-color: #BB8E51; /* change this value to set the background color */
+  padding: 20px; /* add padding to create some space between the text and the background */
+  border-radius: 10px; /* add rounded corners to the background */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3); /* add a shadow effect */
+  display: inline-block; /* make the element an inline block to make the borders as long as the text */
+}
+
+.All_Student_Table_Header{
+  color: white;
+  text-align: center; /* center the text within the element */
+  margin-top: 50px auto 0; /* adjust this value as needed */
+  background-color: #BB8E51; /* change this value to set the background color */
+  padding: 5px; /* add padding to create some space between the text and the background */
+  display: inline-block; /* make the element an inline block to make the borders as long as the text */
+  margin-bottom: 0px;
+}
+
+.student-table select {
+  font-size: 16px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  background-color: #BB8E51;
+  color: #fff;
+}
+
+.student-table input[type="submit"] {
+  font-size: 16px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #BB8E51;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.2s ease-in-out; /* add transition effect on hover */
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1); /* add shadow effect to the border */
+}
+
+.student-table input[type="submit"]:hover {
+  background-color: #FCD4C5;
+}
+
+/***************************************** VIEW STUDENT PAGE END /*****************************************/
+
+
+/***************************************** TRANSCRIPT PAGE START /*****************************************/
+/* Unique class for the transcript page */
+
+.transcript-page {
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  border-left: 40px solid #f0f0f0;
+  border-right: 40px solid #f0f0f0;
+  border-bottom: 40px solid #f0f0f0;
+  margin-top: 30px;
+  margin-top: 30px;
+}
+
+/* Style for the main header */
+.transcript-page h1 {
+  font-size: 36px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.transcript-page p{
+  color: #000;
+}
+
+/* Style for the table */
+.transcript-page table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  border-left: 4px solid #ccc;
+  border-right: 4px solid #ccc;
+}
+
+/* Style for table headers */
+.transcript-page th {
+  text-align: left;
+  font-weight: bold;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+}
+
+/* Style for table data */
+.transcript-page td {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+/* Style for the "Return to Student Directory" link */
+.transcript-page a {
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+/* Style for even rows of table data */
+.transcript-page tr:nth-child(even) {
+  background-color: #0000;
+}
+
+
+
+/***************************************** TRANSCRIPT PAGE END /*****************************************/
+
+/***************************************** VIEWFORM1 PAGE START /*****************************************/
+     /* apply styles to the table */
+    .viewform1 {
+      width: 80%;
+      margin: 0 auto;
+      text-align: center;
+    }
+     .viewform1 table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .viewform1 th, td {
+      text-align: left;
+      padding: 8px;
+    }
+
+    .viewform1 th {
+      background-color: #555;
+      color: white;
+    }
+
+    .viewform1 tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    .viewform1 tr:nth-child(odd) {
+      background-color: #B8B8B8;
+    }
+
+    .viewform1 table tr {
+      border: 1px solid #ccc;
+   
+
+      transition: background 0.5s;
+      text-decoration: none;
+    }
+  
+    .viewform1 table tr:hover {
+    background: #9C5644;
+    color: #fff;
+    text-decoration: none;
+  }
+
+
+    .viewform1 h1, .viewform1 h2, .viewform1 h3, .viewform1 h4 {
+      background-color: #BB8E51;
+      font-family: Arial, sans-serif;
+      margin: 10px;
+      border-radius: 5px;
+      display: inline-block;
+      padding: 5px 10px;
+    }
+
+    .viewform1 h1 {
+      font-size: 36px;
+    }
+
+    .viewform1 h2 {
+      font-size: 24px;
+    }
+
+    .viewform1 h3 {
+      font-size: 20px;
+    }
+
+    .viewform1 h4 {
+      font-size: 16px;
+    }
+/***************************************** VIEWFORM1 PAGE END /*****************************************/
+
+/***************************************** VIEWFORM1 PAGE START /*****************************************/
+     /* apply styles to the table */
+     .form1 {
+      width: 40%;
+      margin: 0 auto;
+      text-align: center;
+    }
+     .form1 table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .form1 th, td {
+      text-align: left;
+      padding: 8px;
+    }
+
+    .form1 th {
+      background-color: #555;
+      color: white;
+    }
+
+    .form1 tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    .form1 tr:nth-child(odd) {
+      background-color: #B8B8B8;
+    }
+
+    .form1 table tr {
+      border: 1px solid #ccc;
+   
+
+      transition: background 0.5s;
+      text-decoration: none;
+    }
+  
+    .form1 table tr:hover {
+    background: #9C5644;
+    color: #fff;
+    text-decoration: none;
+  }
+
+
+    .form1 h1, .form1 h2, .form1 h3, .form1 h4 {
+      background-color: #BB8E51;
+      font-family: Arial, sans-serif;
+      margin: 10px;
+      border-radius: 5px;
+      display: inline-block;
+      padding: 5px 10px;
+    }
+
+    .form1 h1 {
+      font-size: 36px;
+    }
+
+    .form1 h2 {
+      font-size: 24px;
+    }
+
+    .form1 h3 {
+      font-size: 20px;
+    }
+
+    .form1 h4 {
+      font-size: 16px;
+    }
+/***************************************** VIEWFORM1 PAGE END /*****************************************/
+
+/***************************************** VIEW THESIS PAGE START /*****************************************/
+
+		.thesisview {
+			background-color: #f2f2f2;
+      ;
+			padding: 20px;
+			margin: 20px;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+		.thesisview h1 {
+			font-size: 36px;
+			margin-bottom: 10px;
+		}
+		.thesisview h2 {
+			font-size: 24px;
+			margin-top: 30px;
+			margin-bottom: 10px;
+		}
+		.thesisview  p {
+			font-size: 18px;
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+		.status {
+			font-weight: bold;
+			color: green;
+		}
+		.status-pending {
+			font-weight: bold;
+			color: red;
+		}
+    
+    .text-box {
+			padding: 10px;
+			border: 2px solid #000;
+      background-color: #ccc;
+			border-radius: 5px;
+		}
+    /***************************************** VIEW THESIS PAGE END /*****************************************/
+
+
+    /***************************************** VIEW APPLICATION PAGE START /*****************************************/
+    .application_container {
+      display: flex;
+      justify-content: center;
+      margin: 20px;
+    }
+    .application_box {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin: 20px auto;
+      padding: 20px;
+      width: calc(100% + 20px); /* set width to 100% of viewport width + 40px */
+      border-bottom: 1px solid black;
+      border-left: 0;
+      border-right: 0;
+    }
+    .application_main {
+      margin-top: 20px;
+    }
+    /***************************************** VIEW APPLICATION PAGE END /*****************************************/
+
+
+    /***************************************** VIEW SCHEDULE PAGE START /*****************************************/
+     /* apply styles to the table */
+     .viewschedule {
+      width: 80%;
+      margin: 0 auto;
+      text-align: center;
+      padding: 10px;
+    }
+    
+     .viewschedule table {
+      border-collapse: collapse;
+      width: 100%;
+      border-spacing: 5px;
+    }
+
+    .viewschedule th, td {
+      text-align: center;
+      padding: 8px;
+      border: 1px solid black; /* or any other color and width you prefer */
+    }
+
+
+
+    .viewschedule th {
+      background-color: #5C5C5C;
+      color: white;
+    }
+
+    .viewschedule tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    .viewschedule tr:nth-child(odd) {
+      background-color: #B8B8B8;
+    }
+
+    .viewschedule table tr {
+      border: 1px solid #ccc;
+      transition: background 0.5s;
+      text-decoration: none;
+    }
+  
+    .viewschedule table tr:hover {
+    background: #BFCC94;
+    /* color: #fff; */
+    text-decoration: none;
+  }
+
+
+    .viewschedule h1, .viewschedule h2, .viewschedule h3, .viewschedule h4 {
+      background-color: #BB8E51;
+      font-family: Arial, sans-serif;
+      margin: 10px;
+      border-radius: 5px;
+      display: inline-block;
+      padding: 5px 10px;
+    }
+
+    .viewschedule h1 {
+      font-size: 36px;
+    }
+
+    .viewschedule h2 {
+      font-size: 24px;
+    }
+
+    .viewschedule h3 {
+      font-size: 20px;
+    }
+
+    .viewschedule h4 {
+      font-size: 16px;
+    }
+    .viewschedule a{
+      color:#000;
+    }
+
+    .viewschedule input {
+      background-color: #BB8E51; /* add hover effect to links */
+      padding: 5px; /* add padding to links */
+      color: #fff; /* set text color for links */
+      text-decoration: none; /* remove underline from links */
+      transition: background-color 0.2s ease-in-out; /* add transition effect on hover */
+      border: 1px solid #BB8E51;
+      border-radius: 2px; /* add rounded corners to the border */
+      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1); /* add shadow effect to the border */
+      text-align: center; /* center the text */
+    
+    }
+    
+    .viewschedule input:hover {
+      background-color: #FCD4C5; /* add hover effect to links */
+    }
+    
+/***************************************** VIEW SCHEDULE PAGE END /*****************************************/
+
+
+/***************************************** VIEW Fac-tablePAGE START /*****************************************/
+
+.fac-table{
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 200px;
+  border-radius: 10px; /* add rounded corners to the background */
+}
+
+.fac-table th, .fac-table td {
+  padding: 8px;
+  text-align: center;
+}
+
+.fac-table th {
+  background-color: #5C5C5C;
+  color: white;
+}
+
+.fac-table td{
+  border: 1px solid #ddd;
+
+  padding: 8px;
+}
+.fac-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+  color: #000; /* set text color for links */
+}
+
+.fac-table tr:nth-child(odd) {
+  background-color: #B8B8B8;
+  color: #000; /* set text color for links */
+}
+
+.fac-table  tr {
+  border: 1px solid #ccc;
+  transition: background-color 0.5s;
+  text-decoration: none;
+}
+
+.fac-table  tr:hover {
+background: #BFCC94;
+/* color: #fff; */
+text-decoration: none;
+}
+
+.fac-table a {
+  display: block;
+  background-color: #BB8E51; /* add hover effect to links */
+  padding: 20px; /* add padding to links */
+  color: #fff; /* set text color for links */
+  text-decoration: none; /* remove underline from links */
+  transition: background-color 0.2s ease-in-out; /* add transition effect on hover */
+  border: 1px solid #BB8E51;
+  border-radius: 5px; /* add rounded corners to the border */
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1); /* add shadow effect to the border */
+  text-align: center; /* center the text */
+
+}
+
+.fac-table a:hover {
+  background-color: #FCD4C5; /* add hover effect to links */
+}
+
+
+    /* -------------------------------  CREATE ACCOUNT ------------------------------------------------------------------------ */
+
+    .createaccount input {
+      background-color: #BB8E51;
+    }
+
+    /* -------------------------------  UNIVERSAL ------------------------------------------------------------------------ */
+
+    error {
+      color: red;
+    }
+
+    orange {
+      color: #F56329;
+    }
+
+
+
+    /* -------------------------------------------------- SEARCHES START -------------------------------------------------------------*/
+
+  
+  .search {
+      background-color: #fff;
+      padding: 4px;
+      border-radius: 5px
+  }
+  
+  .search-1 {
+      position: relative;
+      width: 100%
+  }
+  
+  .search-1 input {
+      height: 45px;
+      border: none;
+      width: 97%;
+      padding-left: 34px;
+      padding-right: 10px;
+      border-right: 2px solid #eee
+  }
+  
+  .search-1 input:focus {
+      border-color: none;
+      box-shadow: none;
+      outline: none
+  }
+  
+  .search-1 i {
+      position: absolute;
+      top: 12px;
+      left: 5px;
+      font-size: 24px;
+      color: #eee
+  }
+  
+  ::placeholder {
+      /* color: #eee; */
+      opacity: .7;
+      font-weight: 300;
+  }
+  
+  .search-2 {
+      position: relative;
+      width: 95%
+  }
+  
+  .search-2 input {
+      height: 45px;
+      border: none;
+      width: 97%;
+      padding-left: 18px;
+      padding-right: 100px
+  }
+  
+  .search-2 input:focus {
+      border-color: none;
+      box-shadow: none;
+      outline: none
+  }
+  
+  .search-2 i {
+      position: absolute;
+      top: 12px;
+      left: -10px;
+      font-size: 24px;
+      color: #eee
+  }
+  
+  .search-2 button {
+      position: absolute;
+      right: 1px;
+      top: 0px;
+      border: none;
+      height: 45px;
+      background-color: #F56329;
+      color: #fff;
+      width: 90px;
+      border-radius: 4px
+  }
+  
+  @media (max-width:800px) {
+      .search-1 input {
+          border-right: none;
+          border-bottom: 1px solid #eee
+      }
+  
+      .search-2 i {
+          left: 4px
+      }
+  
+      .search-2 input {
+          padding-left: 34px
+      }
+  
+      .search-2 button {
+          height: 37px;
+          top: 5px
+      }
+  }

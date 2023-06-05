@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Student Portal </title>
+        <link href="/static/styles.css" rel="stylesheet" type="text/css" />
+        <style>
+          body {
+            background: url("static/images/wallpaper.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+          }
+        </style>
+      </head>
+
+      <body>
+        {% include "navbar.html" %}
+    <div class = "main">
+        <div class="parent">
+            <h1 class="GS_Portal_Text">Welcome Alumn: {{session["first_name"]}} {{session["last_name"]}}</h1>
+        </div>
+        <div class="portal-table-container">
+            <div class="portal-table">
+                <div class="portal-table-header">Alumni Privileges</div>
+                    <div class="portal-table-content">
+                        <a href="/transcript_ads/{{x.uid}}" class="portal-table-link">View Your Transcript</a>
+                    </div>
+                </div>
+        </div>
+    </body>
+</html>

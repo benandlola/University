@@ -1,0 +1,83 @@
+<html>
+    <head>
+        <title> Student Portal </title>
+        <style>
+            .error {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #ffffff;
+                color: black;
+                width: 50%;
+                padding: 20px;
+                border-radius: 10px;
+                text-align: center;
+                margin: auto;
+                font-size:30px;
+            }
+        </style>
+    </head>
+<body>
+{% include "navbar.html" %}
+<div class = "main">
+    <br><br><br>
+    <div class = error>
+    Congratulations! Your advisor has approved your list of classes!
+    </div>
+    <br>
+    <div class = "viewschedule">
+        <table cellspacing = 0 align = center>
+            <tr>
+                <th align = center height = 50 width = 100 style="background-color: #3D3D3D;">
+                    <b>{% if session["current_semester"] == 1 %}
+                        Spring
+                    {% elif session["current_semester"] == 2 %}
+                        Summer
+                    {% else %}
+                        Fall
+                    {% endif %}
+                    {{ session['current_year'] }}</b></br>
+                </th>
+                <th align="center" height="50" width="100">
+                    <b>Monday</b>
+                </th>
+                <th align="center" height="50" width="100"><br>
+                    <b>Tuesday</b>
+                </th>
+                <th align="center" height="50" width="100"><br>
+                    <b>Wednesday</b>
+                </th>
+                <th align="center" height="50" width="100"><br>
+                    <b>Thursday</b>
+                </th>
+                <th align="center" height="50" width="100"><br>
+                    <b>Friday</b>
+                </th>
+            </tr>
+            {% for period in range(3) %}
+            <tr>
+                <td align="center" height="50" widht="100" style="background-color: #5C5C5C;">
+                    <b style="color: #fff;">{{ session['different_periods'][period] }}</b>
+                </td>
+                {% for day in range(5) %}
+                <td align="center" height="50" widht="100">
+                    <b>{{ session['schedule'][period][day][0] }}</b>
+                    {% if session['schedule'][period][day][0] != 'free period' %}
+                        <br> CID: {{session['schedule'][period][day][2]}}<br>
+                        <a href={{ url_for('Class_Page', class_ID = session['schedule'][period][day][1]) }}>class page</a>
+                    {% endif %}
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <br><br>
+    <div style = "text-align: center">
+    <form action = "/Student_Portal_Approved" method = "POST">
+        <input type = submit name = submit value = "add to my schedule" class = "nav_btn">
+    </form>
+    </div>
+</div>
+</body>

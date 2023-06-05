@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GS Portal</title>
+  <link href="/static/styles.css" rel="stylesheet" type="text/css" />
+  <style>
+        body {
+          background: url("static/images/wallpaper.jpg");
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
+      </style>
+</head>
+
+<body>
+
+  {% include "navbar.html" %}
+
+  <div class = "student-table-main">
+      <div class="parent">
+      <h2 class = "All_Student_Table_Text"> Welcome {{facultyinfo.fname}} {{facultyinfo.minit}} {{facultyinfo.lname}} | UID: {{facultyinfo.uid}} | Role: {{facultyinfo.user_type}}</h4>
+      </div>
+      <h3 class = "All_Student_Table_Header">Admit Students</h3>
+  </div>
+
+  <br><br>
+  <form method="POST" action="/admitstudents">
+  <div class="search_container"> <div class="search"> <div class="search_row"> <div class="col-md-6"> <div class="search-1"> <i class='bx bx-search-alt'></i> <input type="text" name = "lname" placeholder="Last Name"> </div> </div> <div class="col-md-6"> <div> <div class="search-2"> <i class='bx bxs-map' ></i> <input type="text" name = "uid" placeholder="    UID"> <button> Search </button> </div> </div> </div> </div> </div>
+</div>
+  </form><br>
+      <table class="student-table">
+        <thead>
+          <tr>
+              <th>Name</th> 
+              <th>UID</th>
+              <th>Admit</th>      
+          </tr>
+      </thead>
+      <tbody>
+          {% for ad in admit %}
+          {% if ad['status'] == 'acceptdeposit' %}
+          <tr>
+            <td>{{ ad['fname'] }}  {% if ad['minit'] %} {{ ad['minit'] }}{% endif %} {{ ad['lname'] }}</td>
+            <td> {{ ad['uid'] }}</td>
+            <td> <a href="\accept_app\{{ ad['uid'] }}">Admit</a>
+            </tr>
+          {% endif %}
+      {% endfor %}
+        </tbody>
+      </table>
+      <br>
+    </div>
+</body>
+</html>
+

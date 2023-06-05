@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>View Form 1</title>
+    <style>
+      main {
+        width: 80%;
+        margin: 0 auto;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    {% include "navbar.html" %}
+
+    <div class="viewform1">
+      <h1>Form 1</h1><br>
+      <h2>Student: {{student.fname}} {{ student.minit }} {{ student.lname }}</h2>
+
+      <h3>ID: {{student.uid}}</h3>
+
+      {% if x == [] %}<br>
+      <h4>Student has no form 1</h4>
+      {% endif %}
+
+      <table>
+        <tr>
+          <th>CID</th>
+          <th>Department</th>
+          <th>Course Num</th>
+          <th>Title</th>
+        </tr>
+
+        {% for class in x %}
+        <tr>
+          <td>{{class.cid}}</td>
+          <td>{{class.department}}</td>
+          <td>{{ class.class_num }}</td>
+          <td>{{ class.class_title }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+
+      {% if user_type == 'Student' %}
+      <a href="/All_Student_Portal" class= "nav_btn" >Return to directory</a>
+      {% elif user_type == 'Faculty Advisor' or user_type == 'GS' %}
+      <a href="/facultyviewstudents" class= "nav_btn">Return to all students</a>
+      {% endif %}
+    </div>
+
+    <br><br>
+    <div style="text-align: center;">
+      <div style="display: inline-block; margin-top: 20px;">
+        <!-- <a href="/studentdirectory/{{student_ID}}" class="nav_btn" style="display: inline-block;">Return to Student Directory</a> -->
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title> Student Portal </title>
+        <style>
+            .error {
+                /* display: flex; */
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                background-color: #ffffff;
+                width: 50%;
+                padding: 20px;
+                border-radius: 10px;
+                text-align: center;
+                margin: auto;
+            }
+            .error: :any-link {
+                color: #F56329;
+            }
+        </style>
+    </head>
+<body>
+{% include "navbar.html" %}
+<div class = "main">
+    <br>
+    <div class = error>
+        <h1>You are not able to register for classes until your advisor has approved your advising hold form.</h1>
+        <br>Please be patient, your advisor should approve your form in 3-5 business days.<br><br>
+        <a href = "/Advising_Hold_Form{{session['uid']}}" style = "color: #F56329"> View Your Advising Hold Form</a>
+    </div>
+</div>
+</body>
